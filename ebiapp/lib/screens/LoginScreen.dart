@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/ebiAPI.dart';
 import '../utils/globals.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -53,12 +54,8 @@ class _LoginPromptState extends State<LoginPrompt> {
 
   bool loginValid = true;
 
-  Future<int> futureID;
-  void initState() {
-    super.initState();
-    futureID = retrieveUser(user);
-  }
-
+  Future<UserData> futureUser;
+  @override
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -97,8 +94,10 @@ class _LoginPromptState extends State<LoginPrompt> {
               //margin: EdgeInsets.all(5.0),
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: TextField(
-                onChanged: (newText) {
-                  user = newText;
+                onChanged: (String value) async {
+                  user = value;
+
+                  setState(() {});
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: 'User ID'),
@@ -121,8 +120,9 @@ class _LoginPromptState extends State<LoginPrompt> {
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: TextField(
                 obscureText: true,
-                onChanged: (newText) {
-                  password = newText;
+                onChanged: (String value) async {
+                  password = value;
+                  setState(() {});
                 },
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: 'Password'),
@@ -141,29 +141,32 @@ class _LoginPromptState extends State<LoginPrompt> {
                 child: FlatButton(
                     child: Text("Login"),
                     onPressed: () {
-                      //verify the user here via dbFuture<double> futurePrice;
-
-                      //if user is valid, we go to next screen
+                      futureUser = EBIapi().fetchUser(user);
+                      //verify the user here via dbFuture<UserData> futureUser;
+                      //if user is valid, we go to next screen.
+                      setState(() {});
+                      if (loginValid) {
+                        print("test");
+                      } else {}
                       //otherwise show error message
                     },
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)))),
-
-            FutureBuilder<int>(
-              future: futureID,
+            FutureBuilder<UserData>(
+              future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  userID = snapshot.data;
+                  loginValid = userValidation(snapshot.data.password, password);
                 } else if (snapshot.hasError) {
                   return Text("${snapshot.error}");
                 }
 
+                // By default, show a loading spinner.
                 return Container(width: 0, height: 0);
-
                 //return CircularProgressIndicator();
               },
-            )
+            ),
           ],
         ),
       ),

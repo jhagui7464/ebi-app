@@ -1,12 +1,37 @@
 library globals;
 
-import 'ebiAPI.dart';
+import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:crypto/crypto.dart' as crypto;
 
-int userID;
+//{"ID":,"UName":"","Email":"","password":"","IdCliente":}
+//class and factory constructor
+class UserData {
+  final int id;
+  final String uname;
+  final String email;
+  final String password;
+  final int idcliente;
 
-http.Client httpClient = http.Client();
-Future<int> retrieveUser(String username) async {
-  return EBIapi.fetchUser(httpClient, username);
+  UserData({this.id, this.uname, this.email, this.password, this.idcliente});
+
+  factory UserData.fromJson(Map<String, dynamic> json) {
+    return UserData(
+        id: json['ID'],
+        uname: json['UName'],
+        email: json['Email'],
+        password: json['password'],
+        idcliente: json['IdCliente']);
+  }
+}
+
+String generateMd5(String input) {
+  return crypto.md5.convert(utf8.encode(input)).toString();
+}
+
+bool userValidation(String jsonPass, String password) {
+  if (generateMd5(password) == jsonPass) {
+    return true;
+  }
+  return false;
 }
