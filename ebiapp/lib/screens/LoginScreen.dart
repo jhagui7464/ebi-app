@@ -53,7 +53,7 @@ class _LoginPromptState extends State<LoginPrompt> {
   String password;
 
   bool loginValid = true;
-
+  bool showError = false;
   Future<UserData> futureUser;
   @override
   @override
@@ -153,13 +153,16 @@ class _LoginPromptState extends State<LoginPrompt> {
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)))),
+            Divider(),
+            Container(),
+
             FutureBuilder<UserData>(
               future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   loginValid = userValidation(snapshot.data.password, password);
                 } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
+                  return Text("Username or Password are Invalid");
                 }
 
                 // By default, show a loading spinner.
