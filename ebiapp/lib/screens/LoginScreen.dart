@@ -141,7 +141,8 @@ class _LoginPromptState extends State<LoginPrompt> {
                 child: FlatButton(
                     child: Text("Login"),
                     onPressed: () {
-                      futureUser = EBIapi().fetchUser(user);
+                      futureUser =
+                          EBIapi().fetchUser(user, generateMd5(password));
                       //verify the user here via dbFuture<UserData> futureUser;
                       //if user is valid, we go to next screen.
                       setState(() {});
@@ -160,7 +161,7 @@ class _LoginPromptState extends State<LoginPrompt> {
               future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  loginValid = userValidation(snapshot.data.password, password);
+                  loginValid = true;
                 } else if (snapshot.hasError) {
                   return Text("Username or Password are Invalid");
                 }

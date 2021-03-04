@@ -3,9 +3,9 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class EBIapi {
-  Future<UserData> fetchUser(String username) async {
-    final response =
-        await http.get('https://ebi-api.herokuapp.com/users/' + username);
+  Future<UserData> fetchUser(String username, String password) async {
+    final response = await http.get(
+        'https://ebi-api.herokuapp.com/users/' + username + '/' + password);
 
     if (response.statusCode == 200) {
       // Map<String, dynamic> json = jsonDecode(response.body);

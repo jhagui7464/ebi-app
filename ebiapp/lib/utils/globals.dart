@@ -28,10 +28,3 @@ class UserData {
 String generateMd5(String input) {
   return crypto.md5.convert(utf8.encode(input)).toString();
 }
-
-bool userValidation(String jsonPass, String password) {
-  if (generateMd5(password) == jsonPass) {
-    return true;
-  }
-  return false;
-}
