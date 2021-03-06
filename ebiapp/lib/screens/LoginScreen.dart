@@ -49,13 +49,13 @@ class LoginPrompt extends StatefulWidget {
 }
 
 class _LoginPromptState extends State<LoginPrompt> {
-  String user;
-  String password;
+  final userController = TextEditingController();
+  final passController = TextEditingController();
 
   bool loginValid = true;
-  bool showError = false;
   Future<UserData> futureUser;
-  @override
+  UserData currentUser;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -83,6 +83,7 @@ class _LoginPromptState extends State<LoginPrompt> {
               padding: EdgeInsets.fromLTRB(10, 70, 10, 0),
               child: Image.asset(
                 'assets/images/ebi_02.png',
+                key: Key('login-screen'),
                 height: 240,
                 width: 200,
               ),
@@ -94,11 +95,8 @@ class _LoginPromptState extends State<LoginPrompt> {
               //margin: EdgeInsets.all(5.0),
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: TextField(
-                onChanged: (String value) async {
-                  user = value;
-
-                  setState(() {});
-                },
+                key: Key('user-name'),
+                controller: userController,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: 'User ID'),
               ),
@@ -119,11 +117,9 @@ class _LoginPromptState extends State<LoginPrompt> {
               //margin: EdgeInsets.all(5.0),
               padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
               child: TextField(
+                key: Key('pass-word'),
                 obscureText: true,
-                onChanged: (String value) async {
-                  password = value;
-                  setState(() {});
-                },
+                controller: passController,
                 decoration: InputDecoration(
                     border: InputBorder.none, hintText: 'Password'),
               ),
@@ -138,32 +134,46 @@ class _LoginPromptState extends State<LoginPrompt> {
             Divider(),
             Container(
                 width: 150,
-                child: FlatButton(
-                    child: Text("Login"),
+                child: RaisedButton(
+                    key: Key('login-button'),
+                    child: Text(
+                      "Login",
+                      key: Key('login-text'),
+                    ),
                     onPressed: () {
-                      futureUser =
-                          EBIapi().fetchUser(user, generateMd5(password));
+                      setState(() {
+                        futureUser = EBIapi().fetchUser(userController.text,
+                            generateMd5(passController.text));
+                      });
                       //verify the user here via dbFuture<UserData> futureUser;
                       //if user is valid, we go to next screen.
-                      setState(() {});
-                      if (loginValid) {
-                        print("test");
-                      } else {}
+                      if (loginValid) {}
                       //otherwise show error message
                     },
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                         borderRadius: new BorderRadius.circular(30.0)))),
             Divider(),
-            Container(),
+            Container(
+                child: Text(
+              loginValid ? "" : "Username or Password are Invalid",
+              key: Key('notification'),
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            )),
 
             FutureBuilder<UserData>(
               future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   loginValid = true;
+                  currentUser = snapshot.data;
                 } else if (snapshot.hasError) {
-                  return Text("Username or Password are Invalid");
+                  loginValid = false;
                 }
 
                 // By default, show a loading spinner.
