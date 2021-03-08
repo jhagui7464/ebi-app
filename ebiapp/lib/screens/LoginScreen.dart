@@ -12,7 +12,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final userController = TextEditingController();
   final passController = TextEditingController();
 
-  bool loginValid = true;
   Future<UserData> futureUser;
   UserData currentUser;
 
@@ -108,13 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         futureUser = EBIapi().fetchUser(userController.text,
                             generateMd5(passController.text));
                       });
-                      if (loginValid) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomeScreen(currentUser),
-                            ));
-                      }
                     },
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
@@ -124,12 +116,14 @@ class _LoginScreenState extends State<LoginScreen> {
               future: futureUser,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  loginValid = true;
                   currentUser = snapshot.data;
                   print('${currentUser.uname}');
-                  return CircularProgressIndicator(key: Key('loading'));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomeScreen(currentUser),
+                      ));
                 } else if (snapshot.hasError) {
-                  loginValid = false;
                   return Text(
                     "Username or Password are Invalid",
                     key: Key('notification'),
