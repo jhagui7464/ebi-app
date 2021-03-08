@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'LoginScreen.dart';
 
-// ignore: unused_import
-import 'dart:math' as math;
-
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();

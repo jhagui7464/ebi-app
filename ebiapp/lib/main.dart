@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ebiapp/screens/splashScreen.dart';
 import 'screens/splashScreen.dart';
 
 void main() {
