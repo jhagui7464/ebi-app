@@ -1,3 +1,5 @@
+import 'package:ebiapp/screens/LoginScreen.dart';
+
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
@@ -22,8 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       body: Center(child: Text('Holder')),
+
+      // this it the menu bar on the side
       drawer: Container(
-        width: 120,
+        width: 200,
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
         // space to fit everything.
@@ -53,10 +57,22 @@ class _HomeScreenState extends State<HomeScreen> {
                 Navigator.pop(context);
               },
             ),
+            const Divider(
+              height: 1,
+              thickness: 2,
+              color: Colors.black,
+            ),
             ListTile(
               title: Text('Logout'),
               onTap: () {
                 // Update the state of the app
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => LoginScreen(),
+                      ));
+                });
                 // ...
                 // Then close the drawer
                 Navigator.pop(context);
