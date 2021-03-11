@@ -3,6 +3,8 @@ import 'package:ebiapp/screens/LoginScreen.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
+//import 'package:syncfusion_flutter_datagrid/datagrid.dart';
+
 class HomeScreen extends StatefulWidget {
   final UserData user;
 
@@ -25,52 +27,143 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Center(
           child: Column(children: [
-        Container(
+        SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: DataTable(
-          columns: const <DataColumn>[
-            DataColumn(
-              label: Text(
-                'Name',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Age',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-            DataColumn(
-              label: Text(
-                'Role',
-                style: TextStyle(fontStyle: FontStyle.italic),
-              ),
-            ),
-          ],
-          rows: const <DataRow>[
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Sarah')),
-                DataCell(Text('19')),
-                DataCell(Text('Student')),
+              columns: const <DataColumn>[
+                DataColumn(
+                  label: Text(
+                    'PO',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'L. Transport',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Unit',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Origin',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Destination',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Start Date',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Unload Date',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Delivered Date',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'ETA',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Status',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Observations',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'Comments',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
+                DataColumn(
+                  label: Text(
+                    'H',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('Janine')),
-                DataCell(Text('43')),
-                DataCell(Text('Professor')),
+              rows: <DataRow>[
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                  ],
+                ),
+                DataRow(
+                  cells: <DataCell>[
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                    DataCell(Text('Test')),
+                  ],
+                ),
               ],
-            ),
-            DataRow(
-              cells: <DataCell>[
-                DataCell(Text('William')),
-                DataCell(Text('27')),
-                DataCell(Text('Associate Professor')),
-              ],
-            ),
-          ],
-        )),
+            )),
       ])),
 
       // this it the menu bar on the side
