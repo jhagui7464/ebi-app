@@ -41,7 +41,7 @@ class ClientTable {
   final String observation;
   final String comment;
   ClientTable(
-      this.po,
+      {this.po,
       this.trans,
       this.unit,
       this.origin,
@@ -54,25 +54,25 @@ class ClientTable {
       this.etaDate,
       this.refNum,
       this.observation,
-      this.comment);
+      this.comment});
 
   factory ClientTable.fromJson(Map<String, dynamic> json) {
-    // return ClientTable(
-    //     po: json['POCliente'],
-    //     trans: json['NombreLineaTransporte'],
-    //     unit: json['EcoSellos'],
-    //     origin: json['ViajeOrigen'],
-    //     destination: json['ViajeDestino'],
-    //     intDate: json['ViajeInicio'],
-    //     unloadDate: json['Fecha Descargado'],
-    //     unloadHour: json['horaDescargado']
-    //     deliverDate: json['fechaEntregaCliente'],
-    //     deliverHour: json['horaEntregaCliente'],
-    //     etaDate: json['ViajeETA'],
-    //     refNum: json['ViajeReferencia'],
-    //     observation: json['NombreObservacion'],
-    //     comment: json['ViajeNotas'],
-    // );
+    return ClientTable(
+      po: json['POCliente'],
+      trans: json['NombreLineaTransporte'],
+      unit: json['EcoSellos'],
+      origin: json['ViajeOrigen'],
+      destination: json['ViajeDestino'],
+      intDate: json['ViajeInicio'],
+      unloadDate: json['Fecha Descargado'],
+      unloadHour: json['horaDescargado'],
+      deliverDate: json['fechaEntregaCliente'],
+      deliverHour: json['horaEntregaCliente'],
+      etaDate: json['ViajeETA'],
+      refNum: json['ViajeReferencia'],
+      observation: json['NombreObservacion'],
+      comment: json['ViajeNotas'],
+    );
   }
 }
 
