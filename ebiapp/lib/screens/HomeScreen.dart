@@ -168,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // this it the menu bar on the side
       drawer: Container(
+        key: Key('hamburger-menu'),
         width: 200,
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -189,35 +190,47 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            ListTile(
-              title: Text('Settings'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
+            const Divider(
+              height: 0,
+              thickness: 9,
+              color: Colors.white,
+            ),
+            Container(
+              color: Colors.white,
+              child: ListTile(
+                title: Text('Settings'),
+                onTap: () {
+                  // Update the state of the app
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
             ),
             const Divider(
               height: 1,
-              thickness: 2,
+              thickness: 3,
               color: Colors.black,
             ),
-            ListTile(
-              title: Text('Logout'),
-              onTap: () {
-                // Update the state of the app
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginScreen(),
-                      ));
-                });
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
+            Container(
+              color: Colors.white,
+              child: ListTile(
+                key: Key('log-out'),
+                title: Text('Logout'),
+                onTap: () {
+                  // Update the state of the app
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                  });
+                  // ...
+                  // Then close the drawer
+                  Navigator.pop(context);
+                },
+              ),
             ),
           ],
         ),

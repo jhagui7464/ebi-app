@@ -57,22 +57,22 @@ class ClientTable {
       this.comment);
 
   factory ClientTable.fromJson(Map<String, dynamic> json) {
-    return ClientTable(
-        po: json['POCliente'],
-        trans: json['NombreLineaTransporte'],
-        unit: json['EcoSellos'],
-        origin: json['ViajeOrigen'],
-        destination: json['ViajeDestino'],
-        intDate: json['ViajeInicio'],
-        unloadDate: json['Fecha Descargado'],
-        unloadHour: json['horaDescargado']
-        deliverDate: json['fechaEntregaCliente'],
-        deliverHour: json['horaEntregaCliente'],
-        etaDate: json['ViajeETA'],
-        refNum: json['ViajeReferencia'],
-        observation: json['NombreObservacion'],
-        comment: json['ViajeNotas'],
-    );
+    // return ClientTable(
+    //     po: json['POCliente'],
+    //     trans: json['NombreLineaTransporte'],
+    //     unit: json['EcoSellos'],
+    //     origin: json['ViajeOrigen'],
+    //     destination: json['ViajeDestino'],
+    //     intDate: json['ViajeInicio'],
+    //     unloadDate: json['Fecha Descargado'],
+    //     unloadHour: json['horaDescargado']
+    //     deliverDate: json['fechaEntregaCliente'],
+    //     deliverHour: json['horaEntregaCliente'],
+    //     etaDate: json['ViajeETA'],
+    //     refNum: json['ViajeReferencia'],
+    //     observation: json['NombreObservacion'],
+    //     comment: json['ViajeNotas'],
+    // );
   }
 }
 
