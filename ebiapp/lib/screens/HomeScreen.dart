@@ -1,4 +1,6 @@
 import 'package:ebiapp/screens/LoginScreen.dart';
+import 'package:ebiapp/utils/ebiAPI.dart';
+import 'package:flutter/src/rendering/box.dart';
 
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  List<ClientTable> userTables;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,146 +34,184 @@ class _HomeScreenState extends State<HomeScreen> {
           key: Key('welcome'),
         ),
       ),
+
       body: Center(
-          child: Column(children: [
-        SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: DataTable(
-              columns: const <DataColumn>[
-                DataColumn(
-                  label: Text(
-                    'PO',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'L. Transport',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Unit',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Origin',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Destination',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Start Date',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Unload Date',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Delivered Date',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'ETA',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Status',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Observations',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'Comments',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-                DataColumn(
-                  label: Text(
-                    'H',
-                    style: TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                ),
-              ],
-              rows: <DataRow>[
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                  ],
-                ),
-                DataRow(
-                  cells: <DataCell>[
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                    DataCell(Text('Test')),
-                  ],
-                ),
-              ],
-            )),
-      ])),
+          child: Column(
+        children: [
+          Container(
+            child: FutureBuilder<List<ClientTable>>(
+              future: EBIapi().fetchTables(widget.user.idcliente),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  userTables = snapshot.data;
+                  return Divider();
+                } else if (snapshot.hasError) {
+                  print('error');
+                }
+                return CircularProgressIndicator();
+              },
+            ),
+          ),
+          Container(
+            child: ListView.separated(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              padding: const EdgeInsets.all(1),
+              itemCount: userTables.length,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 50,
+                  color: Colors.white,
+                  child: Center(child: Text('Entry ${userTables[index].po}')),
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  const Divider(),
+            ),
+          ),
+        ],
+      )),
+
+      // body: Center(
+      //     child: Column(children: [
+      //   SingleChildScrollView(
+      //       scrollDirection: Axis.horizontal,
+      //       child: DataTable(
+      //         columns: const <DataColumn>[
+      //           DataColumn(
+      //             label: Text(
+      //               'PO',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'L. Transport',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Unit',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Origin',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Destination',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Start Date',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Unload Date',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Delivered Date',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'ETA',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Status',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Observations',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'Comments',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //           DataColumn(
+      //             label: Text(
+      //               'H',
+      //               style: TextStyle(fontStyle: FontStyle.italic),
+      //             ),
+      //           ),
+      //         ],
+      //         rows: <DataRow>[
+      //           DataRow(
+      //             cells: <DataCell>[
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //             ],
+      //           ),
+      //           DataRow(
+      //             cells: <DataCell>[
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //             ],
+      //           ),
+      //           DataRow(
+      //             cells: <DataCell>[
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //               DataCell(Text('Test')),
+      //             ],
+      //           ),
+      //         ],
+      //       )),
+      // ])),
 
       // this it the menu bar on the side
       drawer: Container(
