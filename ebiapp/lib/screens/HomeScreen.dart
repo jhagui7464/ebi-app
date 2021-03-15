@@ -1,6 +1,5 @@
 import 'package:ebiapp/screens/LoginScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
-import 'package:flutter/src/rendering/box.dart';
 
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<ClientTable> userTables;
 
+  Future<List<ClientTable>> futureTables;
+
   @override
   void initState() {
     super.initState();
+    futureTables = EBIapi().fetchTables(widget.user.idcliente);
   }
 
   @override
@@ -31,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Color(0xFFE5251E),
         title: Text(
           "Welcome, ${widget.user.uname}",
-          key: Key('welcome'),
+          key: Key('welcome '),
         ),
       ),
 
@@ -40,10 +42,11 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Container(
             child: FutureBuilder<List<ClientTable>>(
-              future: EBIapi().fetchTables(widget.user.idcliente),
+              future: futureTables,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   userTables = snapshot.data;
+                  print(snapshot.data);
                   return Divider();
                 } else if (snapshot.hasError) {
                   print('error');
@@ -73,147 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       )),
-
-      // body: Center(
-      //     child: Column(children: [
-      //   SingleChildScrollView(
-      //       scrollDirection: Axis.horizontal,
-      //       child: DataTable(
-      //         columns: const <DataColumn>[
-      //           DataColumn(
-      //             label: Text(
-      //               'PO',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'L. Transport',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Unit',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Origin',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Destination',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Start Date',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Unload Date',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Delivered Date',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'ETA',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Status',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Observations',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'Comments',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //           DataColumn(
-      //             label: Text(
-      //               'H',
-      //               style: TextStyle(fontStyle: FontStyle.italic),
-      //             ),
-      //           ),
-      //         ],
-      //         rows: <DataRow>[
-      //           DataRow(
-      //             cells: <DataCell>[
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //             ],
-      //           ),
-      //           DataRow(
-      //             cells: <DataCell>[
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //             ],
-      //           ),
-      //           DataRow(
-      //             cells: <DataCell>[
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //               DataCell(Text('Test')),
-      //             ],
-      //           ),
-      //         ],
-      //       )),
-      // ])),
 
       // this it the menu bar on the side
       drawer: Container(

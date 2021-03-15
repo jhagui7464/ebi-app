@@ -28,7 +28,7 @@ class EBIapi {
 
   Future<List<ClientTable>> fetchTables(int userID) async {
     final response = await http
-        .get('http://ebi-api.herokuapp.com/userTables/' + userID.toString());
+        .get('https://ebi-api.herokuapp.com/userTables/' + userID.toString());
     if (response.statusCode == 200) {
       return parseTables(response.body);
     } else {

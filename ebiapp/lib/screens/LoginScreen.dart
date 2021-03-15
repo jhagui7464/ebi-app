@@ -92,25 +92,28 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             Divider(),
             Container(
-                width: 150,
-                child: RaisedButton(
-                    key: Key('login-button'),
-                    child: Text(
-                      "Login",
-                      key: Key('login-text'),
-                    ),
-                    onPressed: () {
-                      //verify the user here via dbFuture<UserData> futureUser;
-                      //if user is valid, we go to next screen.
-                      //otherwise show error message
-                      setState(() {
-                        futureUser = EBIapi().fetchUser(userController.text,
-                            generateMd5(passController.text));
-                      });
-                    },
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(30.0)))),
+              width: 150,
+              child: ElevatedButton(
+                key: Key('login-button'),
+                child: Text(
+                  "Login",
+                  key: Key('login-text'),
+                ),
+                onPressed: () {
+                  //verify the user here via dbFuture<UserData> futureUser;
+                  //if user is valid, we go to next screen.
+                  //otherwise show error message
+                  setState(() {
+                    futureUser = EBIapi().fetchUser(
+                        userController.text, generateMd5(passController.text));
+                  });
+                },
+                // color: Colors.white,
+                // shape: RoundedRectangleBorder(
+                //   borderRadius: new BorderRadius.circular(30.0),
+                // ),
+              ),
+            ),
             Divider(),
             FutureBuilder<UserData>(
               future: futureUser,
