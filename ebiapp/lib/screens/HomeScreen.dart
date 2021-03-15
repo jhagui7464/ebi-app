@@ -62,7 +62,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 return Container(
                   height: 50,
                   color: Colors.white,
-                  child: Center(child: Text('Entry ${userTables[index].po}')),
+                  child: Center(
+                      child: Text(
+                          'PO: ${userTables[index].po} ${userTables[index].trans} ${userTables[index].trans}')),
                 );
               },
               separatorBuilder: (BuildContext context, int index) =>
