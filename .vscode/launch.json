@@ -5,10 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "ebiapp",
-            "cwd": "ebiapp",
+            "name": "ebi-app",
+            "type": "dart",
             "request": "launch",
-            "type": "dart"
-        }
+            "program": "lib/main.dart"
+        },
+        // {
+        //     "name": "ebi-app",
+        //     "cwd": "ebi-app",
+        //     "request": "launch",
+        //     "type": "dart"
+        // }
     ]
 }
