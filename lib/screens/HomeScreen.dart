@@ -183,23 +183,23 @@ class _HomeScreenState extends State<HomeScreen> {
               thickness: 9,
               color: Colors.white,
             ),
-            Container(
-              color: Colors.white,
-              child: ListTile(
-                title: Text('Settings'),
-                onTap: () {
-                  // Update the state of the app
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-            const Divider(
-              height: 1,
-              thickness: 3,
-              color: Colors.black,
-            ),
+            // Container(
+            //   color: Colors.white,
+            //   child: ListTile(
+            //     title: Text('Settings'),
+            //     onTap: () {
+            //       // Update the state of the app
+            //       // ...
+            //       // Then close the drawer
+            //       Navigator.pop(context);
+            //     },
+            //   ),
+            // ),
+            // const Divider(
+            //   height: 1,
+            //   thickness: 3,
+            //   color: Colors.black,
+            // ),
             Container(
               color: Colors.white,
               child: ListTile(
