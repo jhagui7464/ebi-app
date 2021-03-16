@@ -15,7 +15,7 @@ class EBIapi {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load user data');
+      throw Exception('Failed to load user data from REST API');
     }
   }
 
@@ -33,6 +33,16 @@ class EBIapi {
       return parseTables(response.body);
     } else {
       throw Exception('Unable to fetch tables from the REST API');
+    }
+  }
+
+  Future<List<ClientTable>> fetchdoneTables(int userID) async {
+    final response = await http.get(
+        'https://ebi-api.herokuapp.com/userTables/done/' + userID.toString());
+    if (response.statusCode == 200) {
+      return parseTables(response.body);
+    } else {
+      throw Exception('Unable to fetch done tables from the REST API');
     }
   }
 }

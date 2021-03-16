@@ -17,12 +17,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   List<ClientTable> userTables;
 
-  Future<List<ClientTable>> futureTables;
-
   @override
   void initState() {
     super.initState();
-    futureTables = EBIapi().fetchTables(widget.user.idcliente);
   }
 
   @override
@@ -40,43 +37,122 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
           child: Column(
         children: [
+          Divider(),
           Container(
             child: FutureBuilder<List<ClientTable>>(
-              future: futureTables,
+              future: EBIapi().fetchTables(widget.user.idcliente),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   userTables = snapshot.data;
-                  print(snapshot.data);
-                  return Divider();
+                  return RichText(
+                      key: Key('conversion'),
+                      text: TextSpan(
+                          text: 'TRACKING OPERATIONS',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 18,
+                          )));
                 } else if (snapshot.hasError) {
-                  print('error');
+                  return Center(child: Text('Error: ${snapshot.error}'));
                 }
-                return CircularProgressIndicator();
+                return Center(child: CircularProgressIndicator());
               },
             ),
           ),
+          // Divider(
+          //   thickness: 5,
+          // ),
           Container(
-            child: ListView.separated(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              padding: const EdgeInsets.all(1),
-              itemCount: userTables.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: 50,
-                  color: Colors.white,
-                  child: Center(
-                      child: Text(
-                          'PO: ${userTables[index].po} ${userTables[index].trans} ${userTables[index].trans}')),
-                );
+            child: FutureBuilder<List<ClientTable>>(
+              future: EBIapi().fetchdoneTables(widget.user.idcliente),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  userTables.addAll(snapshot.data);
+                  return Container(
+                      child: Expanded(
+                    child: ListView.separated(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(1),
+                      itemCount: userTables.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return ExpansionTile(
+                          title: Text(
+                            'PO: ${userTables[index].po}',
+                            style: TextStyle(
+                                fontSize: 18.0, fontWeight: FontWeight.bold),
+                          ),
+                          children: <Widget>[
+                            ListTile(
+                              title: Text(
+                                  'Transportation:  ${userTables[index].trans}'),
+                            ),
+                            ListTile(
+                              title: Text('Unit:  ${userTables[index].unit}'),
+                            ),
+                            ListTile(
+                              title:
+                                  Text('Origin:  ${userTables[index].origin}'),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Destination:  ${userTables[index].destination}'),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Initial Date:  ${userTables[index].intDate}'),
+                            ),
+                            ExpansionTile(
+                              title: Text(
+                                  'Unload Date:  ${userTables[index].unloadDate}'),
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(
+                                      'Unload Hour:  ${userTables[index].unloadHour}'),
+                                ),
+                              ],
+                            ),
+                            ExpansionTile(
+                              title: Text(
+                                  'Delivery Date:  ${userTables[index].deliverDate}'),
+                              children: <Widget>[
+                                ListTile(
+                                  title: Text(
+                                      'Delivery Hour:  ${userTables[index].deliverHour}'),
+                                ),
+                              ],
+                            ),
+                            ListTile(
+                              title: Text('ETA:  ${userTables[index].etaDate}'),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Reference #:  ${userTables[index].refNum}'),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Observation:  ${userTables[index].observation}'),
+                            ),
+                            ListTile(
+                              title: Text(
+                                  'Comment:  ${userTables[index].comment}'),
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(thickness: 5),
+                    ),
+                  ));
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                }
+                return Center(child: CircularProgressIndicator());
               },
-              separatorBuilder: (BuildContext context, int index) =>
-                  const Divider(),
             ),
           ),
         ],
       )),
-
       // this it the menu bar on the side
       drawer: Container(
         key: Key('hamburger-menu'),
