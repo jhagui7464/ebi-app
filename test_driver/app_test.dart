@@ -34,7 +34,7 @@ void main() {
       final loginButton = find.byValueKey('login-button');
       final userBox = find.byValueKey('user-name');
       final passBox = find.byValueKey('pass-word');
-      final appBar = find.byValueKey('welcome');
+      final titleBox = find.byValueKey('titleScreen');
 
       await Future.delayed(const Duration(seconds: 2));
       driver.tap(userBox);
@@ -47,7 +47,7 @@ void main() {
       driver.tap(loginButton);
 
       await Future.delayed(const Duration(seconds: 20));
-      expect(await driver.getText(appBar), "Welcome, MFOOD");
+      expect(await driver.getText(titleBox), "TRACKING OPERATIONS");
     });
 
     test('user should be able to log out from menu', () async {
