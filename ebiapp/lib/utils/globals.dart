@@ -79,3 +79,28 @@ class ClientTable {
 String generateMd5(String input) {
   return crypto.md5.convert(utf8.encode(input)).toString();
 }
+
+String trimString(String str, String ch) {
+  if (str == null) {
+    return 'Pending';
+  }
+  int pos = str.indexOf(ch);
+  if (pos >= 0) {
+    return str.substring(0, pos);
+  } else
+    return str; // there is nothing to trim; alternatively, return `string.Empty`
+}
+
+String stringExists(String str) {
+  if (str == null) {
+    return 'Pending';
+  } else
+    return str;
+}
+
+String commentExists(String str) {
+  if (str == null) {
+    return 'None';
+  } else
+    return str;
+}

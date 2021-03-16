@@ -59,9 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             ),
           ),
-          // Divider(
-          //   thickness: 5,
-          // ),
           Container(
             child: FutureBuilder<List<ClientTable>>(
               future: EBIapi().fetchdoneTables(widget.user.idcliente),
@@ -103,22 +100,25 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Initial Date:  ${userTables[index].intDate}'),
                             ),
                             ExpansionTile(
-                              title: Text(
-                                  'Unload Date:  ${userTables[index].unloadDate}'),
+                              title: Text('Unload Date: ' +
+                                  stringExists(userTables[index].unloadDate)),
                               children: <Widget>[
                                 ListTile(
-                                  title: Text(
-                                      'Unload Hour:  ${userTables[index].unloadHour}'),
+                                  title: Text('Unload Hour: ' +
+                                      stringExists(
+                                          userTables[index].unloadHour)),
                                 ),
                               ],
                             ),
                             ExpansionTile(
-                              title: Text(
-                                  'Delivery Date:  ${userTables[index].deliverDate}'),
+                              title: Text('Delivery Date: ' +
+                                  trimString(
+                                      userTables[index].deliverDate, 'T')),
                               children: <Widget>[
                                 ListTile(
-                                  title: Text(
-                                      'Delivery Hour:  ${userTables[index].deliverHour}'),
+                                  title: Text('Delivery Hour: ' +
+                                      stringExists(
+                                          userTables[index].deliverHour)),
                                 ),
                               ],
                             ),
@@ -134,8 +134,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   'Observation:  ${userTables[index].observation}'),
                             ),
                             ListTile(
-                              title: Text(
-                                  'Comment:  ${userTables[index].comment}'),
+                              title: Text('Comment: ' +
+                                  commentExists(userTables[index].comment)),
                             ),
                           ],
                         );
