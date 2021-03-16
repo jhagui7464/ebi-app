@@ -45,6 +45,8 @@ void main() {
       await driver.enterText('1');
       await driver.waitFor(find.text('1'));
       driver.tap(loginButton);
+
+      await Future.delayed(const Duration(seconds: 20));
       expect(await driver.getText(appBar), "Welcome, MFOOD");
     });
 
