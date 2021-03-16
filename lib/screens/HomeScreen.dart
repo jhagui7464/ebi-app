@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Color(0xFFE5251E),
         title: Text(
           "Welcome, ${widget.user.uname}",
+          key: Key('welcome'),
         ),
       ),
 
