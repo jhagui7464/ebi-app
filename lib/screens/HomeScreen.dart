@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 if (snapshot.hasData) {
                   userTables = snapshot.data;
                   return RichText(
-                      key: Key('conversion'),
+                      key: Key('titleScreen'),
                       text: TextSpan(
                           text: 'TRACKING OPERATIONS',
                           style: TextStyle(
@@ -74,6 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: userTables.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ExpansionTile(
+                          key: Key('MainTile'),
                           title: Text(
                             'PO: ${userTables[index].po}',
                             style: TextStyle(
@@ -127,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             ListTile(
                               title: Text(
-                                  'Reference #:  ${userTables[index].refNum}'),
+                                  'Reference:  ${userTables[index].refNum}'),
                             ),
                             ListTile(
                               title: Text(
