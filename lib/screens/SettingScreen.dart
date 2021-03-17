@@ -1,8 +1,13 @@
 import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/LoginScreen.dart';
+import 'package:ebiapp/screens/SearchScreen.dart';
+import 'package:ebiapp/utils/globals.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
+  final UserData user;
+  final List<ClientTable> tables;
+  SettingsScreen(this.user, this.tables);
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -10,6 +15,26 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   void initState() {
     super.initState();
+  }
+
+  int _selectedIndex = 2;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
+      } else if (_selectedIndex == 1) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SearchScreen(widget.user, widget.tables)));
+      } else if (_selectedIndex == 2) {
+        setState(() {});
+      }
+    });
   }
 
   @override
@@ -42,6 +67,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 },
               ),
             )),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        key: Key('bottom-bar'),
+        backgroundColor: Color(0xFFE5251E),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

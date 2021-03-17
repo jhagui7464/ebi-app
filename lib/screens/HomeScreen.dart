@@ -1,4 +1,3 @@
-import 'package:ebiapp/screens/LoginScreen.dart';
 import 'package:ebiapp/screens/SearchScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
@@ -24,12 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
       if (_selectedIndex == 0) {
         setState(() {});
       } else if (_selectedIndex == 1) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SearchScreen(widget.user, userTables),
+            ));
       } else if (_selectedIndex == 2) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => SettingsScreen(),
+                builder: (context) => SettingsScreen(widget.user, userTables),
               ));
         });
       }
@@ -92,73 +96,78 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemCount: userTables.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Card(
+                            color: Colors.grey[300],
                             child: ExpansionTile(
-                          key: Key('MainTile'),
-                          title: Text(
-                            'PO: ${userTables[index].po}',
-                            style: TextStyle(
-                                fontSize: 18.0, fontWeight: FontWeight.bold),
-                          ),
-                          children: <Widget>[
-                            ListTile(
+                              key: Key('MainTile'),
                               title: Text(
-                                  'Transportation:  ${userTables[index].trans}'),
-                            ),
-                            ListTile(
-                              title: Text('Unit:  ${userTables[index].unit}'),
-                            ),
-                            ListTile(
-                              title:
-                                  Text('Origin:  ${userTables[index].origin}'),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  'Destination:  ${userTables[index].destination}'),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  'Initial Date:  ${userTables[index].intDate}'),
-                            ),
-                            ExpansionTile(
-                              title: Text('Unload Date: ' +
-                                  stringExists(userTables[index].unloadDate)),
+                                'PO: ${userTables[index].po}',
+                                style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold),
+                              ),
                               children: <Widget>[
                                 ListTile(
-                                  title: Text('Unload Hour: ' +
-                                      stringExists(
-                                          userTables[index].unloadHour)),
+                                  title: Text(
+                                      'Transportation:  ${userTables[index].trans}'),
                                 ),
-                              ],
-                            ),
-                            ExpansionTile(
-                              title: Text('Delivery Date: ' +
-                                  trimString(
-                                      userTables[index].deliverDate, 'T')),
-                              children: <Widget>[
                                 ListTile(
-                                  title: Text('Delivery Hour: ' +
+                                  title:
+                                      Text('Unit:  ${userTables[index].unit}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Origin:  ${userTables[index].origin}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Destination:  ${userTables[index].destination}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Initial Date:  ${userTables[index].intDate}'),
+                                ),
+                                ExpansionTile(
+                                  title: Text('Unload Date: ' +
                                       stringExists(
-                                          userTables[index].deliverHour)),
+                                          userTables[index].unloadDate)),
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text('Unload Hour: ' +
+                                          stringExists(
+                                              userTables[index].unloadHour)),
+                                    ),
+                                  ],
+                                ),
+                                ExpansionTile(
+                                  title: Text('Delivery Date: ' +
+                                      trimString(
+                                          userTables[index].deliverDate, 'T')),
+                                  children: <Widget>[
+                                    ListTile(
+                                      title: Text('Delivery Hour: ' +
+                                          stringExists(
+                                              userTables[index].deliverHour)),
+                                    ),
+                                  ],
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'ETA:  ${userTables[index].etaDate}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Reference:  ${userTables[index].refNum}'),
+                                ),
+                                ListTile(
+                                  title: Text(
+                                      'Observation:  ${userTables[index].observation}'),
+                                ),
+                                ListTile(
+                                  title: Text('Comment: ' +
+                                      commentExists(userTables[index].comment)),
                                 ),
                               ],
-                            ),
-                            ListTile(
-                              title: Text('ETA:  ${userTables[index].etaDate}'),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  'Reference:  ${userTables[index].refNum}'),
-                            ),
-                            ListTile(
-                              title: Text(
-                                  'Observation:  ${userTables[index].observation}'),
-                            ),
-                            ListTile(
-                              title: Text('Comment: ' +
-                                  commentExists(userTables[index].comment)),
-                            ),
-                          ],
-                        ));
+                            ));
                       },
                       separatorBuilder: (BuildContext context, int index) =>
                           const Divider(thickness: 0),

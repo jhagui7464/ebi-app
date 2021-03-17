@@ -1,12 +1,15 @@
 import 'package:ebiapp/screens/HomeScreen.dart';
+import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
 class SearchScreen extends StatefulWidget {
+  final UserData user;
   final List<ClientTable> tables;
 
-  SearchScreen(this.tables);
+  SearchScreen(this.user, this.tables);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
@@ -15,7 +18,30 @@ class _SearchScreenState extends State<SearchScreen> {
   Future<List<ClientTable>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     return List.generate(widget.tables.length, (int index) {
-      return ClientTable();
+      if (widget.tables[index].po.contains(search)) {
+        return widget.tables[index];
+      } else {
+        return null;
+      }
+    });
+  }
+
+  int _selectedIndex = 1;
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
+      } else if (_selectedIndex == 1) {
+        setState(() {});
+      } else if (_selectedIndex == 2) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    SettingsScreen(widget.user, widget.tables)));
+      }
     });
   }
 
@@ -91,6 +117,27 @@ class _SearchScreenState extends State<SearchScreen> {
             },
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        key: Key('bottom-bar'),
+        backgroundColor: Color(0xFFE5251E),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
