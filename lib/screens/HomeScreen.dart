@@ -1,10 +1,9 @@
 import 'package:ebiapp/screens/LoginScreen.dart';
+import 'package:ebiapp/screens/SearchScreen.dart';
+import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
-
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
-
-//import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
 class HomeScreen extends StatefulWidget {
   final UserData user;
@@ -16,6 +15,26 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<ClientTable> userTables;
+
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        setState(() {});
+      } else if (_selectedIndex == 1) {
+      } else if (_selectedIndex == 2) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SettingsScreen(),
+              ));
+        });
+      }
+    });
+  }
 
   @override
   void initState() {
@@ -33,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
           key: Key('welcome'),
         ),
       ),
-
       body: Center(
           child: Column(
         children: [
@@ -73,7 +91,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.all(1),
                       itemCount: userTables.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ExpansionTile(
+                        return Card(
+                            child: ExpansionTile(
                           key: Key('MainTile'),
                           title: Text(
                             'PO: ${userTables[index].po}',
@@ -139,10 +158,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                   commentExists(userTables[index].comment)),
                             ),
                           ],
-                        );
+                        ));
                       },
                       separatorBuilder: (BuildContext context, int index) =>
-                          const Divider(thickness: 5),
+                          const Divider(thickness: 0),
                     ),
                   ));
                 } else if (snapshot.hasError) {
@@ -154,74 +173,26 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       )),
-      // this it the menu bar on the side
-      drawer: Container(
-        key: Key('hamburger-menu'),
-        width: 200,
-        // Add a ListView to the drawer. This ensures the user can scroll
-        // through the options in the drawer if there isn't enough vertical
-        // space to fit everything.
-        child: ListView(
-          // Important: Remove any padding from the ListView.
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            Container(
-              height: 150.0,
-              child: DrawerHeader(
-                child: Image.asset(
-                  'assets/images/ebi_02.png',
-                  height: 200,
-                  width: 200,
-                ),
-                decoration: BoxDecoration(
-                  color: Color(0xFFbd3038),
-                ),
-              ),
-            ),
-            const Divider(
-              height: 0,
-              thickness: 9,
-              color: Colors.white,
-            ),
-            // Container(
-            //   color: Colors.white,
-            //   child: ListTile(
-            //     title: Text('Settings'),
-            //     onTap: () {
-            //       // Update the state of the app
-            //       // ...
-            //       // Then close the drawer
-            //       Navigator.pop(context);
-            //     },
-            //   ),
-            // ),
-            // const Divider(
-            //   height: 1,
-            //   thickness: 3,
-            //   color: Colors.black,
-            // ),
-            Container(
-              color: Colors.white,
-              child: ListTile(
-                key: Key('log-out'),
-                title: Text('Logout'),
-                onTap: () {
-                  // Update the state of the app
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ));
-                  });
-                  // ...
-                  // Then close the drawer
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: BottomNavigationBar(
+        key: Key('bottom-bar'),
+        backgroundColor: Color(0xFFE5251E),
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -50,15 +50,15 @@ void main() {
       expect(await driver.getText(appBar), "Welcome, MFOOD");
     });
 
-    test('user should be able to log out from menu', () async {
-      final SerializableFinder locateDrawer =
-          find.byTooltip('Open navigation menu');
+    test('user should be able to log out from Settings', () async {
+      final bottomBar = find.byValueKey('bottom-bar');
       final logoutButton = find.byValueKey('log-out');
       final loginscreenKey = find.byValueKey('login-text');
       await Future.delayed(const Duration(seconds: 2));
-      await driver.tap(locateDrawer);
+      await driver.waitFor(bottomBar);
       await Future.delayed(const Duration(seconds: 2));
-      driver.tap(logoutButton);
+      await driver.tap(find.text('Settings'));
+      await driver.tap(logoutButton);
       expect(await driver.getText(loginscreenKey), 'Login');
     });
   });
