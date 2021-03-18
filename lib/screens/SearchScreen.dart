@@ -40,27 +40,29 @@ class _SearchScreenState extends State<SearchScreen> {
 
   Future<List<ClientTable>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
-    return List.generate(userTables.length, (int index) {
-      if (userTables[index].po.contains(search) ||
-          userTables[index].po == search) {
-        return ClientTable(
-          po: userTables[index].po,
-          trans: userTables[index].trans,
-          unit: userTables[index].unit,
-          origin: userTables[index].origin,
-          destination: userTables[index].destination,
-          intDate: userTables[index].intDate,
-          unloadDate: userTables[index].unloadDate,
-          unloadHour: userTables[index].unloadHour,
-          deliverDate: userTables[index].deliverDate,
-          deliverHour: userTables[index].deliverHour,
-          etaDate: userTables[index].etaDate,
-          refNum: userTables[index].refNum,
-          observation: userTables[index].observation,
-          comment: userTables[index].comment,
-        );
-      } else
-        return null;
+    List<ClientTable> foundTables = [];
+    for (int i = 0; i < userTables.length; i++) {
+      if (userTables[i].po.contains(search) || userTables[i].po == search) {
+        foundTables.add(userTables[i]);
+      }
+    }
+    return List.generate(foundTables.length, (int index) {
+      return ClientTable(
+        po: foundTables[index].po,
+        trans: foundTables[index].trans,
+        unit: foundTables[index].unit,
+        origin: foundTables[index].origin,
+        destination: foundTables[index].destination,
+        intDate: foundTables[index].intDate,
+        unloadDate: foundTables[index].unloadDate,
+        unloadHour: foundTables[index].unloadHour,
+        deliverDate: foundTables[index].deliverDate,
+        deliverHour: foundTables[index].deliverHour,
+        etaDate: foundTables[index].etaDate,
+        refNum: foundTables[index].refNum,
+        observation: foundTables[index].observation,
+        comment: foundTables[index].comment,
+      );
     });
   }
 
@@ -77,151 +79,150 @@ class _SearchScreenState extends State<SearchScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: SearchBar<ClientTable>(
-            hintText: "Search by PO",
-            hintStyle: TextStyle(
-              color: Colors.black54,
-            ),
-            textStyle: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-            loader: Center(
-              child: CircularProgressIndicator(),
-            ),
-            placeHolder: Center(
-              child: Column(
-                children: [
-                  FutureBuilder<List<ClientTable>>(
-                    future: EBIapi().fetchTables(widget.user.idcliente),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        userTables = snapshot.data;
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      }
-                      return Container();
-                    },
-                  ),
-                  FutureBuilder<List<ClientTable>>(
-                    future: EBIapi().fetchdoneTables(widget.user.idcliente),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        userTables.addAll(snapshot.data);
-                        //sortCut(userTables);
-                        return Container(
-                            child: Expanded(
-                          child: ListView.separated(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.all(1),
-                            itemCount: userTables.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return Card(
-                                  color: Colors.grey[300],
-                                  child: ExpansionTile(
-                                    key: Key('MainTile'),
-                                    title: Text(
-                                      'PO: ${userTables[index].po}',
-                                      style: TextStyle(
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    children: <Widget>[
-                                      ListTile(
-                                        title: Text(
-                                            'Transportation:  ${userTables[index].trans}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Unit:  ${userTables[index].unit}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Origin:  ${userTables[index].origin}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Destination:  ${userTables[index].destination}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Initial Date:  ${userTables[index].intDate}'),
-                                      ),
-                                      ExpansionTile(
-                                        title: Text('Unload Date: ' +
-                                            stringExists(
-                                                userTables[index].unloadDate)),
-                                        children: <Widget>[
-                                          ListTile(
-                                            title: Text('Unload Hour: ' +
-                                                stringExists(userTables[index]
-                                                    .unloadHour)),
-                                          ),
-                                        ],
-                                      ),
-                                      ExpansionTile(
-                                        title: Text('Delivery Date: ' +
-                                            trimString(
-                                                userTables[index].deliverDate,
-                                                'T')),
-                                        children: <Widget>[
-                                          ListTile(
-                                            title: Text('Delivery Hour: ' +
-                                                stringExists(userTables[index]
-                                                    .deliverHour)),
-                                          ),
-                                        ],
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'ETA:  ${userTables[index].etaDate}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Reference:  ${userTables[index].refNum}'),
-                                      ),
-                                      ListTile(
-                                        title: Text(
-                                            'Observation:  ${userTables[index].observation}'),
-                                      ),
-                                      ListTile(
-                                        title: Text('Comment: ' +
-                                            commentExists(
-                                                userTables[index].comment)),
-                                      ),
-                                    ],
-                                  ));
-                            },
-                            separatorBuilder:
-                                (BuildContext context, int index) =>
-                                    const Divider(thickness: 0),
-                          ),
-                        ));
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text('Error: ${snapshot.error}'));
-                      }
-                      return Center(child: CircularProgressIndicator());
-                    },
-                  ),
-                ],
+              hintText: "Search by PO",
+              hintStyle: TextStyle(
+                color: Colors.black54,
               ),
-            ),
-            onError: (error) {
-              return Center(
-                child: Text("Error occurred : $error"),
-              );
-            },
-            emptyWidget: Center(
-              child: Text("Empty"),
-            ),
-            mainAxisSpacing: 10,
-            crossAxisSpacing: 10,
-            minimumChars: 1,
-            onSearch: search,
-            onItemFound: (ClientTable post, int index) {
-              if (post == null) {
-                return Container();
-              } else {
+              textStyle: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+              loader: Center(
+                child: CircularProgressIndicator(),
+              ),
+              placeHolder: Center(
+                child: Column(
+                  children: [
+                    FutureBuilder<List<ClientTable>>(
+                      future: EBIapi().fetchTables(widget.user.idcliente),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          userTables = snapshot.data;
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        }
+                        return Container();
+                      },
+                    ),
+                    FutureBuilder<List<ClientTable>>(
+                      future: EBIapi().fetchdoneTables(widget.user.idcliente),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          userTables.addAll(snapshot.data);
+                          //sortCut(userTables);
+                          return Container(
+                              child: Expanded(
+                            child: ListView.separated(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(1),
+                              itemCount: userTables.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Card(
+                                    color: Colors.grey[300],
+                                    child: ExpansionTile(
+                                      key: Key('MainTile'),
+                                      title: Text(
+                                        'PO: ${userTables[index].po}',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      children: <Widget>[
+                                        ListTile(
+                                          title: Text(
+                                              'Transportation:  ${userTables[index].trans}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Unit:  ${userTables[index].unit}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Origin:  ${userTables[index].origin}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Destination:  ${userTables[index].destination}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Initial Date:  ${userTables[index].intDate}'),
+                                        ),
+                                        ExpansionTile(
+                                          title: Text('Unload Date: ' +
+                                              stringExists(userTables[index]
+                                                  .unloadDate)),
+                                          children: <Widget>[
+                                            ListTile(
+                                              title: Text('Unload Hour: ' +
+                                                  stringExists(userTables[index]
+                                                      .unloadHour)),
+                                            ),
+                                          ],
+                                        ),
+                                        ExpansionTile(
+                                          title: Text('Delivery Date: ' +
+                                              trimString(
+                                                  userTables[index].deliverDate,
+                                                  'T')),
+                                          children: <Widget>[
+                                            ListTile(
+                                              title: Text('Delivery Hour: ' +
+                                                  stringExists(userTables[index]
+                                                      .deliverHour)),
+                                            ),
+                                          ],
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'ETA:  ${userTables[index].etaDate}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Reference:  ${userTables[index].refNum}'),
+                                        ),
+                                        ListTile(
+                                          title: Text(
+                                              'Observation:  ${userTables[index].observation}'),
+                                        ),
+                                        ListTile(
+                                          title: Text('Comment: ' +
+                                              commentExists(
+                                                  userTables[index].comment)),
+                                        ),
+                                      ],
+                                    ));
+                              },
+                              separatorBuilder:
+                                  (BuildContext context, int index) =>
+                                      const Divider(thickness: 0),
+                            ),
+                          ));
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              onError: (error) {
+                return Center(
+                  child: Text("Error occurred : $error"),
+                );
+              },
+              emptyWidget: Center(
+                child: Text("Empty"),
+              ),
+              mainAxisSpacing: 10,
+              crossAxisSpacing: 10,
+              minimumChars: 1,
+              onSearch: search,
+              onItemFound: (ClientTable post, int index) {
                 return ExpansionTile(
                   key: Key('MainTile'),
                   title: Text(
@@ -279,9 +280,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ],
                 );
-              }
-            },
-          ),
+              }),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
