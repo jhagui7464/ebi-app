@@ -26,14 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => SearchScreen(widget.user, userTables),
+              builder: (context) => SearchScreen(widget.user),
             ));
       } else if (_selectedIndex == 2) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => SettingsScreen(widget.user, userTables),
+                builder: (context) => SettingsScreen(widget.user),
               ));
         });
       }
@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   userTables.addAll(snapshot.data);
+                  //sortCut(userTables);
                   return Container(
                       child: Expanded(
                     child: ListView.separated(

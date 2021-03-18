@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
   final UserData user;
-  final List<ClientTable> tables;
-  SettingsScreen(this.user, this.tables);
+  SettingsScreen(this.user);
   @override
   _SettingsScreenState createState() => _SettingsScreenState();
 }
@@ -26,13 +25,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
-        Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    SearchScreen(widget.user, widget.tables)));
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => SearchScreen(widget.user)));
       } else if (_selectedIndex == 2) {
-        setState(() {});
+        setState(() {
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => SettingsScreen(widget.user)));
+        });
       }
     });
   }
