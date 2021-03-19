@@ -16,7 +16,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
   }
 
-  int _selectedIndex = 2;
+  int _selectedIndex = 1;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -25,9 +25,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => SearchScreen(widget.user)));
-      } else if (_selectedIndex == 2) {
         setState(() {
           Navigator.pushReplacement(
               context,
@@ -50,24 +47,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
       ),
       body: Center(
-        child: Container(
-            color: Colors.white,
-            child: Card(
-              child: ListTile(
-                key: Key('log-out'),
-                title: Text('Logout'),
-                onTap: () {
-                  // Update the state of the app
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ));
-                  });
-                },
-              ),
-            )),
+        child: Column(children: [
+          Container(
+              color: Colors.grey[200],
+              child: Card(
+                child: ListTile(
+                  key: Key('log-out'),
+                  title: Text('Logout'),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  onTap: () {
+                    // Update the state of the app
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ));
+                    });
+                  },
+                ),
+              )),
+        ]),
       ),
       bottomNavigationBar: BottomNavigationBar(
         key: Key('bottom-bar'),
@@ -76,10 +76,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),

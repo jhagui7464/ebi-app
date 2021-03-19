@@ -15,7 +15,7 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -23,13 +23,6 @@ class _SearchScreenState extends State<SearchScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
-        setState(() {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => SearchScreen(widget.user)));
-        });
-      } else if (_selectedIndex == 2) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -75,6 +68,30 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Color(0xFFE5251E),
+          title: Padding(
+              padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
+              child: Text(
+                "Tracking Operations",
+                key: Key('tracking-title'),
+              )),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            //the icon button let's us pop back to the
+            //cup selection screen
+            key: Key('goBack'),
+            onPressed: () {
+              Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(widget.user)));
+            },
+          )),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -290,10 +307,6 @@ class _SearchScreenState extends State<SearchScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
