@@ -1,6 +1,5 @@
 import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/LoginScreen.dart';
-import 'package:ebiapp/screens/SearchScreen.dart';
 import 'package:ebiapp/utils/globals.dart';
 import 'package:flutter/material.dart';
 
