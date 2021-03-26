@@ -77,16 +77,16 @@ class ClientTable {
 }
 
 class InventoryTable {
-  final String tramitID;
+  final int tramitID;
   final String dateArrived;
-  final String factoryDate;
-  final String bulkNumber;
-  final String productPounds;
-  final String productID;
+  final int factoryDate;
+  final int bulkNumber;
+  final int productPounds;
+  final int productID;
   final String productDescription;
-  final String totalExits;
+  final int totalExits;
   final String po;
-  final String existence;
+  final int existence;
 
   InventoryTable({
     this.tramitID,
@@ -133,7 +133,7 @@ String trimString(String str, String ch) {
 }
 
 String stringExists(String str) {
-  if (str == null) {
+  if (str == null || str == 'null') {
     return 'Pending';
   } else
     return str;

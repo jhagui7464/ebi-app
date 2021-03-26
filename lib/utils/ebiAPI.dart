@@ -45,4 +45,21 @@ class EBIapi {
       throw Exception('Unable to fetch done tables from the REST API');
     }
   }
+
+  List<InventoryTable> parseinvTables(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed
+        .map<InventoryTable>((json) => InventoryTable.fromJson(json))
+        .toList();
+  }
+
+  Future<List<InventoryTable>> fetchInventoryTables(int userID) async {
+    final response = await http
+        .get('https://ebi-api.herokuapp.com/inventory/' + userID.toString());
+    if (response.statusCode == 200) {
+      return parseinvTables(response.body);
+    } else {
+      throw Exception('Unable to fetch inventory tables from the REST API');
+    }
+  }
 }

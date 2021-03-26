@@ -1,4 +1,5 @@
-import 'package:ebiapp/screens/SearchScreen.dart';
+import 'package:ebiapp/screens/InventorySearchScreen.dart';
+import 'package:ebiapp/screens/TrackingSearchScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,36 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TrackingSearchScreen(widget.user)));
+                          builder: (context) =>
+                              TrackingSearchScreen(widget.user)));
+                },
+              ),
+            ),
+          ),
+          Divider(),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              width: 350,
+              color: Colors.grey[200],
+              child: ListTile(
+                key: Key("inventory-button"),
+                title: Text(
+                  "Inventory",
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              InventorySearchScreen(widget.user)));
                 },
               ),
             ),
