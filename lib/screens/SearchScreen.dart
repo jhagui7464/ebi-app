@@ -5,16 +5,16 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
+class TrackingSearchScreen extends StatefulWidget {
   final UserData user;
 
-  SearchScreen(this.user);
+  TrackingSearchScreen(this.user);
 
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _TrackingSearchScreenState createState() => _TrackingSearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {

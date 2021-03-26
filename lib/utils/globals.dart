@@ -76,6 +76,47 @@ class ClientTable {
   }
 }
 
+class InventoryTable {
+  final String tramitID;
+  final String dateArrived;
+  final String factoryDate;
+  final String bulkNumber;
+  final String productPounds;
+  final String productID;
+  final String productDescription;
+  final String totalExits;
+  final String po;
+  final String existence;
+
+  InventoryTable({
+    this.tramitID,
+    this.dateArrived,
+    this.factoryDate,
+    this.bulkNumber,
+    this.productPounds,
+    this.productID,
+    this.productDescription,
+    this.totalExits,
+    this.po,
+    this.existence,
+  });
+
+  factory InventoryTable.fromJson(Map<String, dynamic> json) {
+    return InventoryTable(
+      tramitID: json['IdFolioTramie'],
+      dateArrived: json['FechaLlegada'],
+      factoryDate: json['IdClienteFactura'],
+      bulkNumber: json['NumeroBultos'],
+      productPounds: json['LibrasProducto'],
+      productID: json['IdProducto'],
+      productDescription: json['DescripcionProductoIngles'],
+      totalExits: json['TotalSalidas'],
+      po: json['POCliente'],
+      existence: json['Existencia'],
+    );
+  }
+}
+
 String generateMd5(String input) {
   return crypto.md5.convert(utf8.encode(input)).toString();
 }

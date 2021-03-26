@@ -79,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SearchScreen(widget.user)));
+                          builder: (context) => TrackingSearchScreen(widget.user)));
                 },
               ),
             ),
