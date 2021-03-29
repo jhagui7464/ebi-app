@@ -71,7 +71,7 @@ class _InventorySearchScreenState extends State<InventorySearchScreen> {
               padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
               child: Text(
                 "Inventory Operations",
-                key: Key('tracking-title'),
+                key: Key('inventory-title'),
               )),
           leading: IconButton(
             icon: Icon(

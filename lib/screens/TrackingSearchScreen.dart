@@ -126,8 +126,29 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
                       future: EBIapi().fetchdoneTables(widget.user.idcliente),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          userTables.addAll(snapshot.data);
-                          //sortCut(userTables);
+                          for (int i = 0; i < snapshot.data.length; i++) {
+                            if (snapshot.data[i].deliverDate != null) {
+                              String testDate =
+                                  trimString(snapshot.data[i].deliverDate, 'T');
+
+                              if (snapshot.data[i].deliverHour != null) {
+                                testDate += ' ';
+                                testDate += snapshot.data[i].deliverHour;
+                              }
+                              DateTime dateTime = DateTime.parse(testDate);
+                              Duration dur =
+                                  DateTime.now().difference(dateTime);
+                              if (dur.inDays < 1) {
+                                userTables.add(snapshot.data[i]);
+                                print("PO: " +
+                                    snapshot.data[i].po +
+                                    " has this much time " +
+                                    dur.inDays.toString());
+                              }
+                            }
+                          }
+                          print("cut length: " + userTables.length.toString());
+
                           return Container(
                               child: Expanded(
                             child: ListView.separated(
@@ -181,9 +202,9 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
                                         ),
                                         ExpansionTile(
                                           title: Text('Delivery Date: ' +
-                                              trimString(
+                                              stringExists(trimString(
                                                   userTables[index].deliverDate,
-                                                  'T')),
+                                                  'T'))),
                                           children: <Widget>[
                                             ListTile(
                                               title: Text('Delivery Hour: ' +
