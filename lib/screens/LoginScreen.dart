@@ -142,7 +142,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
 
                 // By default, show a loading spinner.
-                return Container(width: 0, height: 0);
+                if (snapshot.hasData) {
+                  return Expanded(child: CircularProgressIndicator());
+                } else {
+                  return Container(width: 0, height: 0);
+                }
                 //return CircularProgressIndicator();
               },
             ),
