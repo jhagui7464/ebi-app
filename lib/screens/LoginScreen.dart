@@ -17,21 +17,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
+    precacheImage(AssetImage("assets/images/ebi_02.png"), context);
+    ImageProvider logo = AssetImage("assets/images/ebi_02.png");
+    Image logoImage = Image(
+      image: logo,
+      width: 250.0,
+      height: 167.0,
+    );
+    precacheImage(AssetImage("assets/images/background.png"), context);
+    ImageProvider background = AssetImage('assets/images/background.png');
+
     return Scaffold(
         body: Center(
       //this contains the background for the login screen
       child: Container(
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/images/background.png'),
-                fit: BoxFit.fill)),
+            image: DecorationImage(image: background, fit: BoxFit.fill)),
 
         //this will be the logo following the login boxes with the contact information
         //at the bottom
@@ -39,13 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Container(
                 child: Padding(
-              padding: EdgeInsets.fromLTRB(10, 70, 10, 0),
-              child: Image.asset(
-                'assets/images/ebi_02.png',
-                key: Key('login-screen'),
-                height: 240,
-                width: 200,
-              ),
+              padding: EdgeInsets.fromLTRB(10, 80, 10, 40),
+              child: logoImage,
             )),
 
             //USER ID

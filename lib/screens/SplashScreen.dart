@@ -26,6 +26,13 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(AssetImage("assets/images/ebi_02.png"), context);
+    ImageProvider logo = AssetImage("assets/images/ebi_02.png");
+    Image logoImage = Image(
+      image: logo,
+      width: 250.0,
+      height: 167.0,
+    );
     return Scaffold(
         body: Container(
       // Center is a layout widget. It takes a single child and positions it
@@ -39,13 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
       ),
 
-      child: Center(
-        child: Image.asset(
-          'assets/images/ebi_02.png',
-          height: 140,
-          width: 110,
-        ),
-      ),
+      child: Center(child: logoImage),
     ));
   }
 }

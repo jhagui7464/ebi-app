@@ -40,6 +40,7 @@ class ClientTable {
   final String refNum;
   final String observation;
   final String comment;
+  final int priority;
   ClientTable(
       {this.po,
       this.trans,
@@ -54,25 +55,26 @@ class ClientTable {
       this.etaDate,
       this.refNum,
       this.observation,
-      this.comment});
+      this.comment,
+      this.priority});
 
   factory ClientTable.fromJson(Map<String, dynamic> json) {
     return ClientTable(
-      po: json['POCliente'],
-      trans: json['NombreLineaTransporte'],
-      unit: json['EcoSellos'],
-      origin: json['ViajeOrigen'],
-      destination: json['ViajeDestino'],
-      intDate: json['ViajeInicio'],
-      unloadDate: json['Fecha Descargado'],
-      unloadHour: json['horaDescargado'],
-      deliverDate: json['fechaEntregaCliente'],
-      deliverHour: json['horaEntregaCliente'],
-      etaDate: json['ViajeETA'],
-      refNum: json['ViajeReferencia'],
-      observation: json['NombreObservacion'],
-      comment: json['ViajeNotas'],
-    );
+        po: json['POCliente'],
+        trans: json['NombreLineaTransporte'],
+        unit: json['EcoSellos'],
+        origin: json['ViajeOrigen'],
+        destination: json['ViajeDestino'],
+        intDate: json['ViajeInicio'],
+        unloadDate: json['Fecha Descargado'],
+        unloadHour: json['horaDescargado'],
+        deliverDate: json['fechaEntregaCliente'],
+        deliverHour: json['horaEntregaCliente'],
+        etaDate: json['ViajeETA'],
+        refNum: json['ViajeReferencia'],
+        observation: json['NombreObservacion'],
+        comment: json['ViajeNotas'],
+        priority: json['aplicaordenservicio']);
   }
 }
 
@@ -80,13 +82,13 @@ class InventoryTable {
   final int tramitID;
   final String dateArrived;
   final int factoryDate;
-  final int bulkNumber;
-  final int productPounds;
+  final double bulkNumber;
+  final double productPounds;
   final int productID;
   final String productDescription;
-  final int totalExits;
+  final double totalExits;
   final String po;
-  final int existence;
+  final double existence;
 
   InventoryTable({
     this.tramitID,

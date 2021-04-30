@@ -31,6 +31,13 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
     });
   }
 
+  Color prioCheck(int check) {
+    if (check == 1) {
+      return Colors.red[300];
+    } else
+      return Colors.grey[300];
+  }
+
   Future<List<ClientTable>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     List<ClientTable> foundTables = [];
@@ -55,6 +62,7 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
         refNum: foundTables[index].refNum,
         observation: foundTables[index].observation,
         comment: foundTables[index].comment,
+        priority: foundTables[index].priority,
       );
     });
   }
@@ -158,7 +166,8 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
                               itemCount: userTables.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Card(
-                                    color: Colors.grey[300],
+                                    color:
+                                        prioCheck(userTables[index].priority),
                                     child: ExpansionTile(
                                       key: Key('MainTile'),
                                       title: Text(
