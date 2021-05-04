@@ -148,15 +148,9 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
                                   DateTime.now().difference(dateTime);
                               if (dur.inDays < 1) {
                                 userTables.add(snapshot.data[i]);
-                                print("PO: " +
-                                    snapshot.data[i].po +
-                                    " has this much time " +
-                                    dur.inDays.toString());
                               }
                             }
                           }
-                          print("cut length: " + userTables.length.toString());
-
                           return Container(
                               child: Expanded(
                             child: ListView.separated(

@@ -79,21 +79,21 @@ class ClientTable {
 }
 
 class InventoryTable {
-  final int tramitID;
+  final num tramitID;
   final String dateArrived;
-  final int factoryDate;
-  final double bulkNumber;
-  final double productPounds;
-  final int productID;
+  final num factoryID;
+  final num bulkNumber;
+  final num productPounds;
+  final num productID;
   final String productDescription;
-  final double totalExits;
+  final num totalExits;
   final String po;
-  final double existence;
+  final num existence;
 
   InventoryTable({
     this.tramitID,
     this.dateArrived,
-    this.factoryDate,
+    this.factoryID,
     this.bulkNumber,
     this.productPounds,
     this.productID,
@@ -107,7 +107,7 @@ class InventoryTable {
     return InventoryTable(
       tramitID: json['IdFolioTramie'],
       dateArrived: json['FechaLlegada'],
-      factoryDate: json['IdClienteFactura'],
+      factoryID: json['IdClienteFactura'],
       bulkNumber: json['NumeroBultos'],
       productPounds: json['LibrasProducto'],
       productID: json['IdProducto'],

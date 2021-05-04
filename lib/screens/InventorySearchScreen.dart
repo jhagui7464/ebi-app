@@ -44,7 +44,7 @@ class _InventorySearchScreenState extends State<InventorySearchScreen> {
         po: foundTables[index].po,
         tramitID: foundTables[index].tramitID,
         dateArrived: foundTables[index].dateArrived,
-        factoryDate: foundTables[index].factoryDate,
+        factoryID: foundTables[index].factoryID,
         bulkNumber: foundTables[index].bulkNumber,
         productPounds: foundTables[index].productPounds,
         productID: foundTables[index].productID,

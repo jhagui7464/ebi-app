@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: [
             Container(
                 child: Padding(
-              padding: EdgeInsets.fromLTRB(10, 80, 10, 40),
+              padding: EdgeInsets.fromLTRB(20, 80, 10, 40),
               child: logoImage,
             )),
 
