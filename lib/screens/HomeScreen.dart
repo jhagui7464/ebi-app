@@ -1,5 +1,5 @@
-import 'package:ebiapp/screens/InventorySearchScreen.dart';
-import 'package:ebiapp/screens/TrackingSearchScreen.dart';
+import 'package:ebiapp/screens/InventoryScreen.dart';
+import 'package:ebiapp/screens/TrackingScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
