@@ -119,6 +119,46 @@ class InventoryTable {
   }
 }
 
+class Operations {
+  final int invoiceID;
+  final int processID;
+  final String tramitDate;
+  final int customsID;
+  final String customsName;
+  final int factoryID;
+  final String clientName;
+  final int transportID;
+  final int tramitID;
+  final String arrivalDate;
+
+  Operations(
+      {this.invoiceID,
+      this.processID,
+      this.tramitDate,
+      this.customsID,
+      this.customsName,
+      this.factoryID,
+      this.clientName,
+      this.transportID,
+      this.tramitID,
+      this.arrivalDate});
+
+  factory Operations.fromJson(Map<String, dynamic> json) {
+    return Operations(
+      invoiceID: json['IdFOlioTramite'],
+      processID: json['IdConceptoProceso'],
+      tramitDate: json['FechaTramite'],
+      customsID: json['IdAduana'],
+      customsName: json['NombreAduana'],
+      factoryID: json['IdClienteFactura'],
+      clientName: json['NombreCLiente'],
+      transportID: json['NombreLineaTRansporte'],
+      tramitID: json['IdTramite'],
+      arrivalDate: json['FechaLLegada'],
+    );
+  }
+}
+
 String generateMd5(String input) {
   return crypto.md5.convert(utf8.encode(input)).toString();
 }
