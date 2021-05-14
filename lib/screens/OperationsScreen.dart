@@ -128,14 +128,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               padding: const EdgeInsets.all(1),
-                              itemCount: invTables.length,
+                              itemCount: OperationsTable.length,
                               itemBuilder: (BuildContext context, int index) {
                                 return Card(
                                     color: Colors.grey[300],
                                     child: ExpansionTile(
                                       key: Key('MainTile'),
                                       title: Text(
-                                        'PO: ${invTables[index].po}',
+                                        'PO: ${OperationsTable[index].po}',
                                         style: TextStyle(
                                             fontSize: 18.0,
                                             fontWeight: FontWeight.bold),
