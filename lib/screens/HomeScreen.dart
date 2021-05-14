@@ -1,6 +1,7 @@
 import 'package:ebiapp/screens/InventoryScreen.dart';
 import 'package:ebiapp/screens/TrackingScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
+import 'package:ebiapp/screens/OperationsScreen.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
@@ -124,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListTile(
                 key: Key("operations-button"),
                 title: Text(
-                  "Panel of Operations",
+                  "Operations",
                   textAlign: TextAlign.left,
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,

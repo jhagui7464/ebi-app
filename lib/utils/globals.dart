@@ -130,18 +130,39 @@ class Operations {
   final int transportID;
   final int tramitID;
   final String arrivalDate;
+  final String po;
+  final String unit;
+  final String processDate;
+  final int ready;
+  final String hourReady;
+  final String sequence;
+  final String entryDate;
+  final String entryHour;
+  final String localizationID;
+  final String telRadio;
 
-  Operations(
-      {this.invoiceID,
-      this.processID,
-      this.tramitDate,
-      this.customsID,
-      this.customsName,
-      this.factoryID,
-      this.clientName,
-      this.transportID,
-      this.tramitID,
-      this.arrivalDate});
+  Operations({
+    this.invoiceID,
+    this.processID,
+    this.tramitDate,
+    this.customsID,
+    this.customsName,
+    this.factoryID,
+    this.clientName,
+    this.transportID,
+    this.tramitID,
+    this.arrivalDate,
+    this.po,
+    this.unit,
+    this.processDate,
+    this.ready,
+    this.hourReady,
+    this.sequence,
+    this.entryDate,
+    this.entryHour,
+    this.localizationID,
+    this.telRadio,
+  });
 
   factory Operations.fromJson(Map<String, dynamic> json) {
     return Operations(
@@ -155,6 +176,16 @@ class Operations {
       transportID: json['NombreLineaTRansporte'],
       tramitID: json['IdTramite'],
       arrivalDate: json['FechaLLegada'],
+      po: json['POCliente'],
+      unit: json['EcoSellos'],
+      processDate: json['FechaConceptoProceso'],
+      ready: json['Listo'],
+      hourReady: json['HoraListo'],
+      sequence: json['Secuencia'],
+      entryDate: json['FechaENtrada'],
+      entryHour: json['HoraENtrada'],
+      localizationID: json['IdLocalizacion'],
+      telRadio: json['TelRadio'],
     );
   }
 }
