@@ -19,7 +19,7 @@ class EBIapi {
     }
   }
 
-  List<ClientTable> parseTables(String responseBody) {
+  List<ClientTable> parseClientTables(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed
         .map<ClientTable>((json) => ClientTable.fromJson(json))
@@ -30,7 +30,7 @@ class EBIapi {
     final response = await http
         .get('https://ebi-api.herokuapp.com/userTables/' + userID.toString());
     if (response.statusCode == 200) {
-      return parseTables(response.body);
+      return parseClientTables(response.body);
     } else {
       throw Exception('Unable to fetch tables from the REST API');
     }
@@ -40,13 +40,13 @@ class EBIapi {
     final response = await http.get(
         'https://ebi-api.herokuapp.com/userTables/done/' + userID.toString());
     if (response.statusCode == 200) {
-      return parseTables(response.body);
+      return parseClientTables(response.body);
     } else {
       throw Exception('Unable to fetch done tables from the REST API');
     }
   }
 
-  List<InventoryTable> parseinvTables(String responseBody) {
+  List<InventoryTable> parseInventoryTables(String responseBody) {
     final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
     return parsed
         .map<InventoryTable>((json) => InventoryTable.fromJson(json))
@@ -57,9 +57,34 @@ class EBIapi {
     final response = await http
         .get('https://ebi-api.herokuapp.com/inventory/' + userID.toString());
     if (response.statusCode == 200) {
-      return parseinvTables(response.body);
+      return parseInventoryTables(response.body);
     } else {
-      throw Exception('Unable to fetch inventory tables from the REST API');
+      throw Exception('Unable to fetch Inventory Tables from the REST API');
+    }
+  }
+
+  List<InventoryTable> parseOperations(String responseBody) {
+    final parsed = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return parsed.map<Operations>((json) => Operations.fromJson(json)).toList();
+  }
+
+  Future<List<InventoryTable>> fetchOperations(int userID) async {
+    final response = await http
+        .get('https://ebi-api.herokuapp.com/operations/' + userID.toString());
+    if (response.statusCode == 200) {
+      return parseOperations(response.body);
+    } else {
+      throw Exception('Unable to fetch Operations from the REST API');
+    }
+  }
+
+  Future<List<InventoryTable>> fetchDoneOperations(int userID) async {
+    final response = await http.get(
+        'https://ebi-api.herokuapp.com/operations/done/' + userID.toString());
+    if (response.statusCode == 200) {
+      return parseOperations(response.body);
+    } else {
+      throw Exception('Unable to fetch Operations from the REST API');
     }
   }
 }
