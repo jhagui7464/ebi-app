@@ -55,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Divider(),
           Text(
-            "Operations",
+            "Main Menu",
             style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
           ),
           Divider(),
@@ -108,8 +108,34 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              InventorySearchScreen(widget.user)));
+                          builder: (context) => InventoryScreen(widget.user)));
+                },
+              ),
+            ),
+          ),
+          Divider(),
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            child: Container(
+              width: 350,
+              color: Colors.grey[200],
+              child: ListTile(
+                key: Key("operations-button"),
+                title: Text(
+                  "Panel of Operations",
+                  textAlign: TextAlign.left,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => InventoryScreen(widget.user)));
                 },
               ),
             ),

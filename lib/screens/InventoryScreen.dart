@@ -5,16 +5,16 @@ import 'package:flappy_search_bar/flappy_search_bar.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
-class InventorySearchScreen extends StatefulWidget {
+class InventoryScreen extends StatefulWidget {
   final UserData user;
 
-  InventorySearchScreen(this.user);
+  InventoryScreen(this.user);
 
   @override
-  _InventorySearchScreenState createState() => _InventorySearchScreenState();
+  _InventoryScreenState createState() => _InventoryScreenState();
 }
 
-class _InventorySearchScreenState extends State<InventorySearchScreen> {
+class _InventoryScreenState extends State<InventoryScreen> {
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
