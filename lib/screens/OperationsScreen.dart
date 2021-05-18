@@ -50,6 +50,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
         factoryID: foundTables[index].factoryID,
         clientName: foundTables[index].clientName,
         transportID: foundTables[index].transportID,
+        transportName: foundTables[index].transportName,
         tramitID: foundTables[index].tramitID,
         arrivalDate: foundTables[index].arrivalDate,
         po: foundTables[index].po,
@@ -81,8 +82,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
           title: Padding(
               padding: const EdgeInsets.fromLTRB(35, 0, 0, 0),
               child: Text(
-                "Inventory Operations",
-                key: Key('inventory-title'),
+                "Panel of Operations",
+                key: Key('operations-title'),
               )),
           leading: IconButton(
             icon: Icon(
@@ -102,7 +103,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SearchBar<InventoryTable>(
+          child: SearchBar<Operations>(
               hintText: "Search by PO",
               hintStyle: TextStyle(
                 color: Colors.black54,
@@ -118,71 +119,112 @@ class _OperationsScreenState extends State<OperationsScreen> {
                 child: Column(
                   children: [
                     FutureBuilder<List<Operations>>(
-                      future: EBIapi().fetchOperations(widget.user.idcliente),
+                      future:
+                          EBIapi().fetchDoneOperations(widget.user.idcliente),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           OperationsTable = snapshot.data;
-                          return Container(
-                              child: Expanded(
-                            child: ListView.separated(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(1),
-                              itemCount: OperationsTable.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Card(
-                                    color: Colors.grey[300],
-                                    child: ExpansionTile(
-                                      key: Key('MainTile'),
-                                      title: Text(
-                                        'PO: ${OperationsTable[index].po}',
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      children: <Widget>[
-                                        ListTile(
-                                          title: Text('Transportation: ' +
-                                              stringExists(invTables[index]
-                                                  .tramitID
-                                                  .toString())),
+                        } else if (snapshot.hasError) {
+                          return Center(
+                              child: Text('Error: ${snapshot.error}'));
+                        }
+                        return Container();
+                      },
+                    ),
+                    FutureBuilder<List<Operations>>(
+                      future: EBIapi().fetchOperations(widget.user.idcliente),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          for (int i = 0; i < snapshot.data.length; i++) {
+                            OperationsTable.add(snapshot.data[i]);
+                          }
+                          if (OperationsTable != null &&
+                              OperationsTable.length != 0) {
+                            return Container(
+                                child: Expanded(
+                              child: ListView.separated(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                padding: const EdgeInsets.all(1),
+                                itemCount: OperationsTable.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return Card(
+                                      color: Colors.grey[300],
+                                      child: ExpansionTile(
+                                        key: Key('MainTile'),
+                                        title: Text(
+                                          'PO: ${OperationsTable[index].po}',
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.bold),
                                         ),
-                                        ListTile(
-                                          title: Text('Date Arrived: ' +
-                                              commentExists(trimString(
-                                                  invTables[index]
-                                                      .dateArrived
-                                                      .toString(),
-                                                  'T'))),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Product:  ${invTables[index].productDescription}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Weight:  ${invTables[index].productPounds}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Total Cases:  ${invTables[index].bulkNumber}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Total Shipments: ${invTables[index].totalExits}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Remaining:  ${invTables[index].existence}'),
-                                        ),
-                                      ],
-                                    ));
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(thickness: 0),
-                            ),
-                          ));
+                                        children: <Widget>[
+                                          ListTile(
+                                            title: Text('Invoice: ' +
+                                                stringExists(
+                                                    OperationsTable[index]
+                                                        .invoiceID
+                                                        .toString())),
+                                          ),
+                                          ListTile(
+                                              title: Text('Tramit Date: ' +
+                                                  commentExists(trimString(
+                                                      OperationsTable[index]
+                                                          .tramitDate
+                                                          .toString(),
+                                                      'T')))),
+                                          ListTile(
+                                              title: Text(
+                                                  'Customs Name:  ${OperationsTable[index].customsName}')),
+                                          ListTile(
+                                              title: Text('Factory ID: ' +
+                                                  OperationsTable[index]
+                                                      .factoryID
+                                                      .toString())),
+                                          ListTile(
+                                              title: Text(
+                                                  'Client: ${OperationsTable[index].clientName}')),
+                                          ListTile(
+                                              title: Text('Transport ID: ' +
+                                                  OperationsTable[index]
+                                                      .transportID
+                                                      .toString())),
+                                          ListTile(
+                                              title: Text(
+                                                  'Transport Name: ${OperationsTable[index].transportName}')),
+                                          ListTile(
+                                              title: Text('Arrival Date: ' +
+                                                  commentExists(trimString(
+                                                      OperationsTable[index]
+                                                          .arrivalDate
+                                                          .toString(),
+                                                      'T')))),
+                                          ListTile(
+                                              title: Text(
+                                                  'Unit: ${OperationsTable[index].unit}')),
+                                          ListTile(
+                                              title: Text('Process Date: ' +
+                                                  commentExists(trimString(
+                                                      OperationsTable[index]
+                                                          .processDate
+                                                          .toString(),
+                                                      'T')))),
+                                          ListTile(
+                                              title: Text('Ready: ' +
+                                                  OperationsTable[index]
+                                                      .ready
+                                                      .toString())),
+                                        ],
+                                      ));
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) =>
+                                        const Divider(thickness: 0),
+                              ),
+                            ));
+                          } else {
+                            return Text('no data available at this moment');
+                          }
                         } else if (snapshot.hasError) {
                           return Center(
                               child: Text('Error: ${snapshot.error}'));
@@ -205,7 +247,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
               crossAxisSpacing: 10,
               minimumChars: 1,
               onSearch: search,
-              onItemFound: (InventoryTable post, int index) {
+              onItemFound: (Operations post, int index) {
                 return ExpansionTile(
                   key: Key('MainTile'),
                   title: Text(
@@ -215,26 +257,45 @@ class _OperationsScreenState extends State<OperationsScreen> {
                   ),
                   children: <Widget>[
                     ListTile(
-                      title: Text('Transportation:  ${post.tramitID}'),
+                      title: Text('Invoice: ' +
+                          stringExists(
+                              OperationsTable[index].invoiceID.toString())),
                     ),
                     ListTile(
-                      title: Text('Unit:  ${post.dateArrived}'),
-                    ),
+                        title: Text('Tramit Date: ' +
+                            commentExists(trimString(
+                                OperationsTable[index].tramitDate.toString(),
+                                'T')))),
                     ListTile(
-                      title: Text('Origin:  ${post.productDescription}'),
-                    ),
+                        title: Text(
+                            'Customs Name:  ${OperationsTable[index].customsName}')),
                     ListTile(
-                      title: Text('Destination:  ${post.productPounds}'),
-                    ),
+                        title: Text('Factory ID: ' +
+                            OperationsTable[index].factoryID.toString())),
                     ListTile(
-                      title: Text('Initial Date:  ${post.bulkNumber}'),
-                    ),
+                        title: Text(
+                            'Client: ${OperationsTable[index].clientName}')),
                     ListTile(
-                      title: Text('ETA:  ${post.totalExits}'),
-                    ),
+                        title: Text('Transport ID: ' +
+                            OperationsTable[index].transportID.toString())),
                     ListTile(
-                      title: Text('Reference:  ${post.existence}'),
-                    ),
+                        title: Text(
+                            'Transport Name: ${OperationsTable[index].transportName}')),
+                    ListTile(
+                        title: Text('Arrival Date: ' +
+                            commentExists(trimString(
+                                OperationsTable[index].arrivalDate.toString(),
+                                'T')))),
+                    ListTile(
+                        title: Text('Unit: ${OperationsTable[index].unit}')),
+                    ListTile(
+                        title: Text('Process Date: ' +
+                            commentExists(trimString(
+                                OperationsTable[index].processDate.toString(),
+                                'T')))),
+                    ListTile(
+                        title: Text('Ready: ' +
+                            OperationsTable[index].ready.toString())),
                   ],
                 );
               }),

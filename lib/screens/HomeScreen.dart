@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => InventoryScreen(widget.user)));
+                          builder: (context) => OperationsScreen(widget.user)));
                 },
               ),
             ),

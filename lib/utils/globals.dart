@@ -128,6 +128,7 @@ class Operations {
   final int factoryID;
   final String clientName;
   final int transportID;
+  final String transportName;
   final int tramitID;
   final String arrivalDate;
   final String po;
@@ -135,10 +136,10 @@ class Operations {
   final String processDate;
   final int ready;
   final String hourReady;
-  final String sequence;
+  final int sequence;
   final String entryDate;
   final String entryHour;
-  final String localizationID;
+  final int localizationID;
   final String telRadio;
 
   Operations({
@@ -150,6 +151,7 @@ class Operations {
     this.factoryID,
     this.clientName,
     this.transportID,
+    this.transportName,
     this.tramitID,
     this.arrivalDate,
     this.po,
@@ -173,7 +175,8 @@ class Operations {
       customsName: json['NombreAduana'],
       factoryID: json['IdClienteFactura'],
       clientName: json['NombreCLiente'],
-      transportID: json['NombreLineaTRansporte'],
+      transportID: json['IdLineaTRansporte'],
+      transportName: json['NombreLineaTRansporte'],
       tramitID: json['IdTramite'],
       arrivalDate: json['FechaLLegada'],
       po: json['POCliente'],
