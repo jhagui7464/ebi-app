@@ -177,18 +177,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               title: Text(
                                                   'Customs Name:  ${OperationsTable[index].customsName}')),
                                           ListTile(
-                                              title: Text('Factory ID: ' +
-                                                  OperationsTable[index]
-                                                      .factoryID
-                                                      .toString())),
-                                          ListTile(
                                               title: Text(
                                                   'Client: ${OperationsTable[index].clientName}')),
-                                          ListTile(
-                                              title: Text('Transport ID: ' +
-                                                  OperationsTable[index]
-                                                      .transportID
-                                                      .toString())),
                                           ListTile(
                                               title: Text(
                                                   'Transport Name: ${OperationsTable[index].transportName}')),
@@ -270,14 +260,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                         title: Text(
                             'Customs Name:  ${OperationsTable[index].customsName}')),
                     ListTile(
-                        title: Text('Factory ID: ' +
-                            OperationsTable[index].factoryID.toString())),
-                    ListTile(
                         title: Text(
                             'Client: ${OperationsTable[index].clientName}')),
-                    ListTile(
-                        title: Text('Transport ID: ' +
-                            OperationsTable[index].transportID.toString())),
                     ListTile(
                         title: Text(
                             'Transport Name: ${OperationsTable[index].transportName}')),
