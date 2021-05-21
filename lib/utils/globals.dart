@@ -136,6 +136,7 @@ class Operations {
   final String processDate;
   final int ready;
   final String hourReady;
+  final String timeChain;
   final int sequence;
   final String entryDate;
   final String entryHour;
@@ -159,6 +160,7 @@ class Operations {
     this.processDate,
     this.ready,
     this.hourReady,
+    this.timeChain,
     this.sequence,
     this.entryDate,
     this.entryHour,
@@ -184,6 +186,7 @@ class Operations {
       processDate: json['FechaConceptoProceso'],
       ready: json['Listo'],
       hourReady: json['HoraListo'],
+      timeChain: json['cadenatiempo'],
       sequence: json['Secuencia'],
       entryDate: json['FechaENtrada'],
       entryHour: json['HoraENtrada'],
@@ -220,4 +223,11 @@ String commentExists(String str) {
     return 'None';
   } else
     return str;
+}
+
+String readyCheck(int number) {
+  if (number == 1) {
+    return "Yes";
+  } else
+    return "No";
 }

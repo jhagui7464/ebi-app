@@ -58,6 +58,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
         processDate: foundTables[index].processDate,
         ready: foundTables[index].ready,
         hourReady: foundTables[index].hourReady,
+        timeChain: foundTables[index].timeChain,
         sequence: foundTables[index].sequence,
         entryDate: foundTables[index].entryDate,
         entryHour: foundTables[index].entryHour,
@@ -201,9 +202,9 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                       'T')))),
                                           ListTile(
                                               title: Text('Ready: ' +
-                                                  OperationsTable[index]
-                                                      .ready
-                                                      .toString())),
+                                                  readyCheck(
+                                                      OperationsTable[index]
+                                                          .ready))),
                                         ],
                                       ));
                                 },
@@ -279,7 +280,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                 'T')))),
                     ListTile(
                         title: Text('Ready: ' +
-                            OperationsTable[index].ready.toString())),
+                            readyCheck(OperationsTable[index].ready))),
                   ],
                 );
               }),
