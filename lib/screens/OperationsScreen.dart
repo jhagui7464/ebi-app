@@ -200,6 +200,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                           .processDate
                                                           .toString(),
                                                       'T')))),
+                                          ExpansionTile(title: Text('test')),
                                           ListTile(
                                               title: Text('Ready: ' +
                                                   readyCheck(

@@ -231,3 +231,21 @@ String readyCheck(int number) {
   } else
     return "No";
 }
+
+List<String> timeChainBreak(String str, int index) {
+  List<String> finalStr;
+  int begin;
+  int end;
+  for (int i = 0; i < str.length; i++) {
+    if (str[i] == index.toString()) {
+      begin = i + 2;
+    } else if (str[i] == '!') {
+      end = i;
+      finalStr.add(str.substring(begin, end));
+      begin = i + 1;
+    } else if (str[i] == '|') {
+      break;
+    }
+  }
+  return finalStr;
+}
