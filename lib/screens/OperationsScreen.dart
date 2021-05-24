@@ -70,7 +70,6 @@ class _OperationsScreenState extends State<OperationsScreen> {
 
   String testFunction(String temp) {
     List<List<String>> Test = timeChainBreak(temp);
-    print(Test);
     return "test";
   }
 
@@ -207,9 +206,9 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                           .toString(),
                                                       'T')))),
                                           ExpansionTile(
-                                              title: Text(testFunction(
-                                                  OperationsTable[index]
-                                                      .timeChain))),
+                                            title: Text('Time Chain'),
+                                            children: [],
+                                          ),
                                           ListTile(
                                               title: Text('Ready: ' +
                                                   readyCheck(
