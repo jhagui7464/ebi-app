@@ -68,6 +68,12 @@ class _OperationsScreenState extends State<OperationsScreen> {
     });
   }
 
+  String testFunction(String temp) {
+    List<List<String>> Test = timeChainBreak(temp);
+    print(Test);
+    return "test";
+  }
+
   List<Operations> OperationsTable;
 
   void initState() {
@@ -200,7 +206,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                           .processDate
                                                           .toString(),
                                                       'T')))),
-                                          ExpansionTile(title: Text('test')),
+                                          ExpansionTile(
+                                              title: Text(testFunction(
+                                                  OperationsTable[index]
+                                                      .timeChain))),
                                           ListTile(
                                               title: Text('Ready: ' +
                                                   readyCheck(
