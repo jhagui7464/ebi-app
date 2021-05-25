@@ -212,7 +212,7 @@ String trimString(String str, String ch) {
 }
 
 String stringExists(String str) {
-  if (str == null || str == 'null') {
+  if (str == null || str == 'null' || str == ' ') {
     return 'Pending';
   } else
     return str;

@@ -68,13 +68,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     });
   }
 
-  String testFunction(String temp) {
-    List<List<String>> Test = timeChainBreak(temp);
-    return "test";
-  }
-
-  List<Operations> OperationsTable;
-
+  List<Operations> OperationsTable = [];
   void initState() {
     super.initState();
   }
@@ -207,7 +201,232 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                       'T')))),
                                           ExpansionTile(
                                             title: Text('Time Chain'),
-                                            children: [],
+                                            children: [
+                                              ExpansionTile(
+                                                  title: Text('Concept 1'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[0][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[0][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 2'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[1][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[1][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 3'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[2][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[2][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 4'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[3][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[3][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 5'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[4][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[4][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 6'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[5][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[5][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 7'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[6][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[6][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 8'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[7][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[7][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 9'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[8][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[8][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 10'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[9][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[9][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 11'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[10][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[10][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 12'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[11][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[11][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 13'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[12][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[12][2]))),
+                                                  ]),
+                                              ExpansionTile(
+                                                  title: Text('Concept 14'),
+                                                  children: [
+                                                    ListTile(
+                                                        title: Text('Date: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[13][1]))),
+                                                    ListTile(
+                                                        title: Text('Hour: ' +
+                                                            stringExists(timeChainBreak(
+                                                                OperationsTable[
+                                                                        index]
+                                                                    .timeChain)[13][2]))),
+                                                  ]),
+                                            ],
                                           ),
                                           ListTile(
                                               title: Text('Ready: ' +
@@ -287,6 +506,179 @@ class _OperationsScreenState extends State<OperationsScreen> {
                             commentExists(trimString(
                                 OperationsTable[index].processDate.toString(),
                                 'T')))),
+                    ExpansionTile(
+                      title: Text('Time Chain'),
+                      children: [
+                        ExpansionTile(title: Text('Concept 1'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[0]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[0]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 2'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[1]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[1]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 3'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[2]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[2]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 4'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[3]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[3]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 5'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[4]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[4]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 6'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[5]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[5]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 7'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[6]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[6]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 8'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[7]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[7]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 9'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[8]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[8]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 10'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[9]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[9]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 11'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[10]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[10]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 12'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[11]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[11]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 13'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[12]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[12]
+                                      [2]))),
+                        ]),
+                        ExpansionTile(title: Text('Concept 14'), children: [
+                          ListTile(
+                              title: Text('Date: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[13]
+                                      [1]))),
+                          ListTile(
+                              title: Text('Hour: ' +
+                                  stringExists(timeChainBreak(
+                                          OperationsTable[index].timeChain)[13]
+                                      [2]))),
+                        ]),
+                      ],
+                    ),
                     ListTile(
                         title: Text('Ready: ' +
                             readyCheck(OperationsTable[index].ready))),
