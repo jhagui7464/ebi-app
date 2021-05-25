@@ -203,7 +203,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                             title: Text('Time Chain'),
                                             children: [
                                               ExpansionTile(
-                                                  title: Text('Concept 1'),
+                                                  title: Text('Received'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -219,7 +219,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[0][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 2'),
+                                                  title: Text(
+                                                      'Documents to Client'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -235,7 +236,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[1][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 3'),
+                                                  title: Text(
+                                                      'Documents from Client'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -251,7 +253,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[2][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 4'),
+                                                  title: Text('US Inspection'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -267,7 +269,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[3][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 5'),
+                                                  title: Text('Agency'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -283,7 +285,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[4][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 6'),
+                                                  title: Text('Transfer'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -299,7 +301,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[5][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 7'),
+                                                  title: Text('PO Requested'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -315,7 +317,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[6][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 8'),
+                                                  title: Text('PO Received'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -331,7 +333,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[7][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 9'),
+                                                  title: Text('Transferred'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -347,7 +349,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[8][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 10'),
+                                                  title: Text('Bodega Exit'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -363,7 +365,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[9][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 11'),
+                                                  title:
+                                                      Text('Customs Entrance'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -379,7 +382,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[10][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 12'),
+                                                  title: Text('Customs Exit'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -395,7 +398,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[11][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 13'),
+                                                  title: Text(
+                                                      'Point of Inspection Entrance'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
@@ -411,7 +415,8 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                                     .timeChain)[12][2]))),
                                                   ]),
                                               ExpansionTile(
-                                                  title: Text('Concept 14'),
+                                                  title: Text(
+                                                      'Point of Inspection Exit'),
                                                   children: [
                                                     ListTile(
                                                         title: Text('Date: ' +
