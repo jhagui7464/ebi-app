@@ -31,13 +31,6 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
     });
   }
 
-  Color prioCheck(int check) {
-    if (check == 1) {
-      return Colors.red[300];
-    } else
-      return Colors.grey[300];
-  }
-
   Future<List<ClientTable>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     List<ClientTable> foundTables = [];

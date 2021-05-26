@@ -23,6 +23,11 @@ class _OperationsScreenState extends State<OperationsScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => _buildPopupDialog(context),
+        );
+      } else if (_selectedIndex == 2) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -34,10 +39,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
   Future<List<Operations>> search(String search) async {
     await Future.delayed(Duration(seconds: 2));
     List<Operations> foundTables = [];
-    for (int i = 0; i < OperationsTable.length; i++) {
-      if (OperationsTable[i].po.contains(search) ||
-          OperationsTable[i].po == search) {
-        foundTables.add(OperationsTable[i]);
+    for (int i = 0; i < operationsTable.length; i++) {
+      if (operationsTable[i].po.contains(search) ||
+          operationsTable[i].po == search) {
+        foundTables.add(operationsTable[i]);
       }
     }
     return List.generate(foundTables.length, (int index) {
@@ -68,7 +73,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     });
   }
 
-  List<Operations> OperationsTable = [];
+  List<Operations> operationsTable = [];
   void initState() {
     super.initState();
   }
@@ -123,7 +128,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                           EBIapi().fetchDoneOperations(widget.user.idcliente),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          OperationsTable = snapshot.data;
+                          operationsTable = snapshot.data;
                         } else if (snapshot.hasError) {
                           return Center(
                               child: Text('Error: ${snapshot.error}'));
@@ -136,25 +141,25 @@ class _OperationsScreenState extends State<OperationsScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           for (int i = 0; i < snapshot.data.length; i++) {
-                            OperationsTable.add(snapshot.data[i]);
+                            operationsTable.add(snapshot.data[i]);
                           }
-                          if (OperationsTable != null &&
-                              OperationsTable.length != 0) {
+                          if (operationsTable != null &&
+                              operationsTable.length != 0) {
                             return Container(
                                 child: Expanded(
                               child: ListView.separated(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
                                 padding: const EdgeInsets.all(1),
-                                itemCount: OperationsTable.length,
+                                itemCount: operationsTable.length,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Card(
                                       color: statusCheck(
-                                          OperationsTable[index].processID),
+                                          operationsTable[index].processID),
                                       child: ExpansionTile(
                                         key: Key('MainTile'),
                                         title: Text(
-                                          'PO: ${OperationsTable[index].po}',
+                                          'PO: ${operationsTable[index].po}',
                                           style: TextStyle(
                                               fontSize: 18.0,
                                               fontWeight: FontWeight.bold),
@@ -163,40 +168,40 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                           ListTile(
                                             title: Text('Invoice: ' +
                                                 stringExists(
-                                                    OperationsTable[index]
+                                                    operationsTable[index]
                                                         .invoiceID
                                                         .toString())),
                                           ),
                                           ListTile(
                                               title: Text('Tramit Date: ' +
                                                   commentExists(trimString(
-                                                      OperationsTable[index]
+                                                      operationsTable[index]
                                                           .tramitDate
                                                           .toString(),
                                                       'T')))),
                                           ListTile(
                                               title: Text(
-                                                  'Customs Name:  ${OperationsTable[index].customsName}')),
+                                                  'Customs Name:  ${operationsTable[index].customsName}')),
                                           ListTile(
                                               title: Text(
-                                                  'Client: ${OperationsTable[index].clientName}')),
+                                                  'Client: ${operationsTable[index].clientName}')),
                                           ListTile(
                                               title: Text(
-                                                  'Transport Name: ${OperationsTable[index].transportName}')),
+                                                  'Transport Name: ${operationsTable[index].transportName}')),
                                           ListTile(
                                               title: Text('Arrival Date: ' +
                                                   commentExists(trimString(
-                                                      OperationsTable[index]
+                                                      operationsTable[index]
                                                           .arrivalDate
                                                           .toString(),
                                                       'T')))),
                                           ListTile(
                                               title: Text(
-                                                  'Unit: ${OperationsTable[index].unit}')),
+                                                  'Unit: ${operationsTable[index].unit}')),
                                           ListTile(
                                               title: Text('Process Date: ' +
                                                   commentExists(trimString(
-                                                      OperationsTable[index]
+                                                      operationsTable[index]
                                                           .processDate
                                                           .toString(),
                                                       'T')))),
@@ -211,14 +216,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[0]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[0]
                                                           [2]))),
@@ -231,14 +236,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[1]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[1]
                                                           [2]))),
@@ -251,14 +256,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[2]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[2]
                                                           [2]))),
@@ -270,14 +275,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[3]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[3]
                                                           [2]))),
@@ -289,14 +294,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[4]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[4]
                                                           [2]))),
@@ -308,14 +313,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[5]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[5]
                                                           [2]))),
@@ -327,14 +332,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[6]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[6]
                                                           [2]))),
@@ -346,14 +351,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[7]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[7]
                                                           [2]))),
@@ -365,14 +370,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[8]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[8]
                                                           [2]))),
@@ -384,14 +389,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[9]
                                                           [1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[9]
                                                           [2]))),
@@ -404,14 +409,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           10][1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           10][2]))),
@@ -423,14 +428,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           11][1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           11][2]))),
@@ -443,14 +448,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           12][1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           12][2]))),
@@ -463,14 +468,14 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                               ListTile(
                                                   title: Text('Date: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           13][1]))),
                                               ListTile(
                                                   title: Text('Hour: ' +
                                                       stringExists(timeChainBreak(
-                                                              OperationsTable[
+                                                              operationsTable[
                                                                       index]
                                                                   .timeChain)[
                                                           13][2]))),
@@ -479,7 +484,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                           ListTile(
                                               title: Text('Ready: ' +
                                                   readyCheck(
-                                                      OperationsTable[index]
+                                                      operationsTable[index]
                                                           .ready))),
                                         ],
                                       ));
@@ -526,33 +531,33 @@ class _OperationsScreenState extends State<OperationsScreen> {
                     ListTile(
                       title: Text('Invoice: ' +
                           stringExists(
-                              OperationsTable[index].invoiceID.toString())),
+                              operationsTable[index].invoiceID.toString())),
                     ),
                     ListTile(
                         title: Text('Tramit Date: ' +
                             commentExists(trimString(
-                                OperationsTable[index].tramitDate.toString(),
+                                operationsTable[index].tramitDate.toString(),
                                 'T')))),
                     ListTile(
                         title: Text(
-                            'Customs Name:  ${OperationsTable[index].customsName}')),
+                            'Customs Name:  ${operationsTable[index].customsName}')),
                     ListTile(
                         title: Text(
-                            'Client: ${OperationsTable[index].clientName}')),
+                            'Client: ${operationsTable[index].clientName}')),
                     ListTile(
                         title: Text(
-                            'Transport Name: ${OperationsTable[index].transportName}')),
+                            'Transport Name: ${operationsTable[index].transportName}')),
                     ListTile(
                         title: Text('Arrival Date: ' +
                             commentExists(trimString(
-                                OperationsTable[index].arrivalDate.toString(),
+                                operationsTable[index].arrivalDate.toString(),
                                 'T')))),
                     ListTile(
-                        title: Text('Unit: ${OperationsTable[index].unit}')),
+                        title: Text('Unit: ${operationsTable[index].unit}')),
                     ListTile(
                         title: Text('Process Date: ' +
                             commentExists(trimString(
-                                OperationsTable[index].processDate.toString(),
+                                operationsTable[index].processDate.toString(),
                                 'T')))),
                     ExpansionTile(
                       title: Text('Time Chain'),
@@ -563,159 +568,159 @@ class _OperationsScreenState extends State<OperationsScreen> {
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[0][1]))),
+                                    operationsTable[index].timeChain)[0][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[0][2]))),
+                                    operationsTable[index].timeChain)[0][2]))),
                         ListTile(
                             title: Text('Documents to Client',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[1][1]))),
+                                    operationsTable[index].timeChain)[1][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[1][2]))),
+                                    operationsTable[index].timeChain)[1][2]))),
                         ListTile(
                             title: Text('Documents from Client',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[2][1]))),
+                                    operationsTable[index].timeChain)[2][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[2][2]))),
+                                    operationsTable[index].timeChain)[2][2]))),
                         ListTile(
                             title: Text('US Inspection',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[3][1]))),
+                                    operationsTable[index].timeChain)[3][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[3][2]))),
+                                    operationsTable[index].timeChain)[3][2]))),
                         ListTile(
                             title: Text('Agency',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[4][1]))),
+                                    operationsTable[index].timeChain)[4][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[4][2]))),
+                                    operationsTable[index].timeChain)[4][2]))),
                         ListTile(
                             title: Text('Transfer',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[5][1]))),
+                                    operationsTable[index].timeChain)[5][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[5][2]))),
+                                    operationsTable[index].timeChain)[5][2]))),
                         ListTile(
                             title: Text('PO Requested',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[6][1]))),
+                                    operationsTable[index].timeChain)[6][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[6][2]))),
+                                    operationsTable[index].timeChain)[6][2]))),
                         ListTile(
                             title: Text('PO Received',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[7][1]))),
+                                    operationsTable[index].timeChain)[7][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[7][2]))),
+                                    operationsTable[index].timeChain)[7][2]))),
                         ListTile(
                             title: Text('Transferred',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[8][1]))),
+                                    operationsTable[index].timeChain)[8][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[8][2]))),
+                                    operationsTable[index].timeChain)[8][2]))),
                         ListTile(
                             title: Text('Bodega Exit',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[9][1]))),
+                                    operationsTable[index].timeChain)[9][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[9][2]))),
+                                    operationsTable[index].timeChain)[9][2]))),
                         ListTile(
                             title: Text('Customs Entrance',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[10][1]))),
+                                    operationsTable[index].timeChain)[10][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[10][2]))),
+                                    operationsTable[index].timeChain)[10][2]))),
                         ListTile(
                             title: Text('Customs Exit',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[11][1]))),
+                                    operationsTable[index].timeChain)[11][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[11][2]))),
+                                    operationsTable[index].timeChain)[11][2]))),
                         ListTile(
                             title: Text('Point of Inspection Entrance',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[12][1]))),
+                                    operationsTable[index].timeChain)[12][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[12][2]))),
+                                    operationsTable[index].timeChain)[12][2]))),
                         ListTile(
                             title: Text('Point of Inspection Exit',
                                 style: TextStyle(fontWeight: FontWeight.bold))),
                         ListTile(
                             title: Text('Date: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[13][1]))),
+                                    operationsTable[index].timeChain)[13][1]))),
                         ListTile(
                             title: Text('Hour: ' +
                                 stringExists(timeChainBreak(
-                                    OperationsTable[index].timeChain)[13][2]))),
+                                    operationsTable[index].timeChain)[13][2]))),
                       ],
                     ),
                     ListTile(
                         title: Text('Ready: ' +
-                            readyCheck(OperationsTable[index].ready))),
+                            readyCheck(operationsTable[index].ready))),
                   ],
                 );
               }),
@@ -730,6 +735,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.analytics),
+            label: 'Quick View',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
           ),
@@ -740,4 +749,26 @@ class _OperationsScreenState extends State<OperationsScreen> {
       ),
     );
   }
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return new AlertDialog(
+    title: const Text('Popup example'),
+    content: new Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text("Hello"),
+      ],
+    ),
+    actions: <Widget>[
+      new FlatButton(
+        onPressed: () {
+          Navigator.of(context).pop();
+        },
+        textColor: Theme.of(context).primaryColor,
+        child: const Text('Close'),
+      ),
+    ],
+  );
 }
