@@ -1,8 +1,10 @@
 library globals;
 
 import 'dart:convert';
+import 'dart:ui';
 
 import 'package:crypto/crypto.dart' as crypto;
+import 'package:flutter/material.dart';
 
 //{"ID":,"UName":"","Email":"","password":"","IdCliente":}
 //class and factory constructor
@@ -243,7 +245,6 @@ List<List<String>> timeChainBreak(String str) {
       List<String> temper = [];
       temper.addAll(tempList);
       finalStr.add(temper);
-      print(finalStr);
       tempList.clear();
       temp = '';
     } else if (str[i] == '!') {
@@ -254,4 +255,28 @@ List<List<String>> timeChainBreak(String str) {
     }
   }
   return finalStr;
+}
+
+Color prioCheck(int check) {
+  if (check == 1) {
+    return Colors.red[300];
+  } else
+    return Colors.grey[300];
+}
+
+Color statusCheck(int check) {
+  if (check == 1)
+    return Colors.red[300];
+  else if (check == 2)
+    return Colors.orange[700];
+  else if (check == 3)
+    return Colors.orange[300];
+  else if (check == 4)
+    return Colors.greenAccent[400];
+  else if (check == 5)
+    return Colors.blue[300];
+  else if (check == 6)
+    return Colors.blue[800];
+  else
+    return Colors.pink[300];
 }
