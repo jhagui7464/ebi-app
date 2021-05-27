@@ -17,23 +17,25 @@ class OperationsScreen extends StatefulWidget {
 class _OperationsScreenState extends State<OperationsScreen> {
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (_selectedIndex == 0) {
+    _selectedIndex = index;
+    if (_selectedIndex == 0) {
+      setState(() {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
-      } else if (_selectedIndex == 1) {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) => _buildPopupDialog(context),
-        );
-      } else if (_selectedIndex == 2) {
+      });
+    } else if (_selectedIndex == 1) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) => _buildPopupDialog(context),
+      );
+    } else if (_selectedIndex == 2) {
+      setState(() {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) => SettingsScreen(widget.user)));
-      }
-    });
+      });
+    }
   }
 
   Future<List<Operations>> search(String search) async {
@@ -121,6 +123,11 @@ class _OperationsScreenState extends State<OperationsScreen> {
             title: Center(
                 child: Text('Inspecting: ' +
                     commentExists(howManyOperations(operationsTable, 7)))),
+          ),
+          ListTile(
+            title: Center(
+                child: Text('Total: ' +
+                    commentExists(operationsTable.length.toString()))),
           ),
         ],
       ),
