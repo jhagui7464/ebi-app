@@ -73,6 +73,69 @@ class _OperationsScreenState extends State<OperationsScreen> {
     });
   }
 
+  Widget _buildPopupDialog(BuildContext context) {
+    return new AlertDialog(
+      title: Center(child: Text('All Operations')),
+      content: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ListTile(
+            tileColor: statusCheck(1),
+            title: Center(
+                child: Text('In Process: ' +
+                    commentExists(howManyOperations(operationsTable, 1)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(2),
+            title: Center(
+                child: Text('Crossing: ' +
+                    commentExists(howManyOperations(operationsTable, 2)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(3),
+            title: Center(
+                child: Text('Divided: ' +
+                    commentExists(howManyOperations(operationsTable, 3)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(4),
+            title: Center(
+                child: Text('Stored: ' +
+                    commentExists(howManyOperations(operationsTable, 4)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(5),
+            title: Center(
+                child: Text('Canceled: ' +
+                    commentExists(howManyOperations(operationsTable, 5)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(6),
+            title: Center(
+                child: Text('Left: ' +
+                    commentExists(howManyOperations(operationsTable, 6)))),
+          ),
+          ListTile(
+            tileColor: statusCheck(7),
+            title: Center(
+                child: Text('Inspecting: ' +
+                    commentExists(howManyOperations(operationsTable, 7)))),
+          ),
+        ],
+      ),
+      actions: <Widget>[
+        new FlatButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          textColor: Theme.of(context).primaryColor,
+          child: const Text('Close'),
+        ),
+      ],
+    );
+  }
+
   List<Operations> operationsTable = [];
   void initState() {
     super.initState();
@@ -749,26 +812,4 @@ class _OperationsScreenState extends State<OperationsScreen> {
       ),
     );
   }
-}
-
-Widget _buildPopupDialog(BuildContext context) {
-  return new AlertDialog(
-    title: const Text('Popup example'),
-    content: new Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Text("Hello"),
-      ],
-    ),
-    actions: <Widget>[
-      new FlatButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        textColor: Theme.of(context).primaryColor,
-        child: const Text('Close'),
-      ),
-    ],
-  );
 }

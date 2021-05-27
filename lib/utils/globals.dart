@@ -198,10 +198,12 @@ class Operations {
   }
 }
 
+//login screen
 String generateMd5(String input) {
   return crypto.md5.convert(utf8.encode(input)).toString();
 }
 
+//true global
 String trimString(String str, String ch) {
   if (str == null) {
     return 'Pending';
@@ -213,6 +215,7 @@ String trimString(String str, String ch) {
     return str; // there is nothing to trim; alternatively, return `string.Empty`
 }
 
+//true global
 String stringExists(String str) {
   if (str == null || str == 'null' || str == ' ') {
     return 'Pending';
@@ -220,6 +223,7 @@ String stringExists(String str) {
     return str;
 }
 
+//true global
 String commentExists(String str) {
   if (str == null) {
     return 'None';
@@ -227,6 +231,7 @@ String commentExists(String str) {
     return str;
 }
 
+//true global
 String readyCheck(int number) {
   if (number == 1) {
     return "Yes";
@@ -234,6 +239,7 @@ String readyCheck(int number) {
     return "No";
 }
 
+//Operations Screen
 List<List<String>> timeChainBreak(String str) {
   List<List<String>> finalStr = [];
   String temp = '';
@@ -257,6 +263,7 @@ List<List<String>> timeChainBreak(String str) {
   return finalStr;
 }
 
+//Tracking Screen
 Color prioCheck(int check) {
   if (check == 1) {
     return Colors.red[300];
@@ -264,6 +271,17 @@ Color prioCheck(int check) {
     return Colors.grey[300];
 }
 
+String howManyOperations(List<Operations> operationsList, int status) {
+  int total = 0;
+  for (int i = 0; i < operationsList.length; i++) {
+    if (operationsList[i].processID == status) {
+      total++;
+    }
+  }
+  return total.toString();
+}
+
+//Operations Screen
 Color statusCheck(int check) {
   if (check == 1)
     return Colors.red[300];
