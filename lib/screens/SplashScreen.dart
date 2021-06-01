@@ -20,12 +20,10 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigatetoLoginScreen() {
-    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    Navigator.pushReplacement(context, SizeRoute(page: LoginScreen()));
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _splashWidget(BuildContext context) {
     precacheImage(AssetImage("assets/images/ebi_02.png"), context);
     ImageProvider logo = AssetImage("assets/images/ebi_02.png");
     Image logoImage = Image(
@@ -33,8 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
       width: 250.0,
       height: 167.0,
     );
-    return Scaffold(
-        body: Container(
+    return new Container(
       // Center is a layout widget. It takes a single child and positions it
       // in the middle of the parent.
 
@@ -47,6 +44,36 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
 
       child: Center(child: logoImage),
-    ));
+    );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: _splashWidget(context));
+  }
+}
+
+class SizeRoute extends PageRouteBuilder {
+  final Widget page;
+  SizeRoute({this.page})
+      : super(
+          pageBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+          ) =>
+              page,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) =>
+              Align(
+            child: SizeTransition(
+              sizeFactor: animation,
+              child: child,
+            ),
+          ),
+        );
 }

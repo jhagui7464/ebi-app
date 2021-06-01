@@ -16,8 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<UserData> futureUser;
   UserData currentUser;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _loginWidget(BuildContext context) {
     precacheImage(AssetImage("assets/images/ebi_02.png"), context);
     ImageProvider logo = AssetImage("assets/images/ebi_02.png");
     Image logoImage = Image(
@@ -27,9 +26,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
     precacheImage(AssetImage("assets/images/background.png"), context);
     ImageProvider background = AssetImage('assets/images/background.png');
-
-    return Scaffold(
-        body: Center(
+    return new Center(
       //this contains the background for the login screen
       child: Container(
         constraints: BoxConstraints.expand(),
@@ -149,6 +146,11 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-    ));
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: _loginWidget(context));
   }
 }
