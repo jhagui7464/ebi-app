@@ -2,6 +2,7 @@ import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
@@ -84,7 +85,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
             onPressed: () {
               Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                       builder: (context) => HomeScreen(widget.user)));
             },
           )),

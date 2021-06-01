@@ -2,6 +2,7 @@ import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +22,11 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
+            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
         Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
                 builder: (context) => SettingsScreen(widget.user)));
       }
     });
@@ -89,7 +90,7 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
             onPressed: () {
               Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                       builder: (context) => HomeScreen(widget.user)));
             },
           )),

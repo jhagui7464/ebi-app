@@ -2,6 +2,7 @@ import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/SettingScreen.dart';
 import 'package:ebiapp/utils/ebiAPI.dart';
 import 'package:flappy_search_bar/flappy_search_bar.dart';
+import 'package:flutter/cupertino.dart';
 import '../utils/globals.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     if (_selectedIndex == 0) {
       setState(() {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
+            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       });
     } else if (_selectedIndex == 1) {
       showDialog(
@@ -32,7 +33,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
       setState(() {
         Navigator.pushReplacement(
             context,
-            MaterialPageRoute(
+            CupertinoPageRoute(
                 builder: (context) => SettingsScreen(widget.user)));
       });
     }
@@ -171,7 +172,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
             onPressed: () {
               Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
+                  CupertinoPageRoute(
                       builder: (context) => HomeScreen(widget.user)));
             },
           )),

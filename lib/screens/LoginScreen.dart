@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../utils/ebiAPI.dart';
 import '../utils/globals.dart';
@@ -121,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(
+                        CupertinoPageRoute(
                           builder: (context) => HomeScreen(currentUser),
                         ));
                   });

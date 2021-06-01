@@ -1,6 +1,7 @@
 import 'package:ebiapp/screens/HomeScreen.dart';
 import 'package:ebiapp/screens/LoginScreen.dart';
 import 'package:ebiapp/utils/globals.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -22,12 +23,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)));
+            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
         setState(() {
           Navigator.pushReplacement(
               context,
-              MaterialPageRoute(
+              CupertinoPageRoute(
                   builder: (context) => SettingsScreen(widget.user)));
         });
       }
