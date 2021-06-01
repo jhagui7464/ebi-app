@@ -166,8 +166,6 @@ class _OperationsScreenState extends State<OperationsScreen> {
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
-            //the icon button let's us pop back to the
-            //cup selection screen
             key: Key('goBack'),
             onPressed: () {
               Navigator.pushReplacement(
