@@ -35,6 +35,52 @@ class _SettingsScreenState extends State<SettingsScreen> {
     });
   }
 
+  Widget _settingsWidget(BuildContext context) {
+    return new Center(
+      child: Column(children: [
+        Container(
+            color: Colors.grey[200],
+            child: Card(
+              child: ListTile(
+                key: Key('log-out'),
+                title: Text('Logout'),
+                trailing: Icon(Icons.keyboard_arrow_right),
+                onTap: () {
+                  // Update the state of the app
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => LoginScreen(),
+                        ));
+                  });
+                },
+              ),
+            )),
+      ]),
+    );
+  }
+
+  Widget bottomMenu(BuildContext context) {
+    return new BottomNavigationBar(
+      key: Key('bottom-bar'),
+      backgroundColor: Color(0xFFE5251E),
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Settings',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.amber[800],
+      onTap: _onItemTapped,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,46 +92,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
           key: Key('settings'),
         ),
       ),
-      body: Center(
-        child: Column(children: [
-          Container(
-              color: Colors.grey[200],
-              child: Card(
-                child: ListTile(
-                  key: Key('log-out'),
-                  title: Text('Logout'),
-                  trailing: Icon(Icons.keyboard_arrow_right),
-                  onTap: () {
-                    // Update the state of the app
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LoginScreen(),
-                          ));
-                    });
-                  },
-                ),
-              )),
-        ]),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        key: Key('bottom-bar'),
-        backgroundColor: Color(0xFFE5251E),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+      body: _settingsWidget(context),
+      bottomNavigationBar: bottomMenu(context),
     );
   }
 }
