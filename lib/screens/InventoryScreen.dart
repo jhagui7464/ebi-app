@@ -56,6 +56,169 @@ class _InventoryScreenState extends State<InventoryScreen> {
     });
   }
 
+  Widget _searchWidget(BuildContext context) {
+    return new SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SearchBar<InventoryTable>(
+            hintText: "Search by PO",
+            hintStyle: TextStyle(
+              color: Colors.black54,
+            ),
+            textStyle: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+            loader: Center(
+              child: CircularProgressIndicator(),
+            ),
+            placeHolder: Center(
+              child: Column(
+                children: [
+                  FutureBuilder<List<InventoryTable>>(
+                    future:
+                        EBIapi().fetchInventoryTables(widget.user.idcliente),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        invTables = snapshot.data;
+                        return Container(
+                            child: Expanded(
+                          child: ListView.separated(
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            padding: const EdgeInsets.all(1),
+                            itemCount: invTables.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Card(
+                                  color: Colors.grey[300],
+                                  child: ExpansionTile(
+                                    key: Key('MainTile'),
+                                    title: Text(
+                                      'PO: ${invTables[index].po}',
+                                      style: TextStyle(
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    children: <Widget>[
+                                      ListTile(
+                                        title: Text('Transportation: ' +
+                                            stringExists(invTables[index]
+                                                .tramitID
+                                                .toString())),
+                                      ),
+                                      ListTile(
+                                        title: Text('Date Arrived: ' +
+                                            commentExists(trimString(
+                                                invTables[index]
+                                                    .dateArrived
+                                                    .toString(),
+                                                'T'))),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            'Product:  ${invTables[index].productDescription}'),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            'Weight:  ${invTables[index].productPounds}'),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            'Total Cases:  ${invTables[index].bulkNumber}'),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            'Total Shipments: ${invTables[index].totalExits}'),
+                                      ),
+                                      ListTile(
+                                        title: Text(
+                                            'Remaining:  ${invTables[index].existence}'),
+                                      ),
+                                    ],
+                                  ));
+                            },
+                            separatorBuilder:
+                                (BuildContext context, int index) =>
+                                    const Divider(thickness: 0),
+                          ),
+                        ));
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      return Center(child: CircularProgressIndicator());
+                    },
+                  ),
+                ],
+              ),
+            ),
+            onError: (error) {
+              return Center(
+                child: Text("Error occurred : $error"),
+              );
+            },
+            emptyWidget: Center(
+              child: Text("Empty"),
+            ),
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            minimumChars: 1,
+            onSearch: search,
+            onItemFound: (InventoryTable post, int index) {
+              return ExpansionTile(
+                key: Key('MainTile'),
+                title: Text(
+                  'PO: ${post.po}',
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+                ),
+                children: <Widget>[
+                  ListTile(
+                    title: Text('Transportation:  ${post.tramitID}'),
+                  ),
+                  ListTile(
+                    title: Text('Unit:  ${post.dateArrived}'),
+                  ),
+                  ListTile(
+                    title: Text('Origin:  ${post.productDescription}'),
+                  ),
+                  ListTile(
+                    title: Text('Destination:  ${post.productPounds}'),
+                  ),
+                  ListTile(
+                    title: Text('Initial Date:  ${post.bulkNumber}'),
+                  ),
+                  ListTile(
+                    title: Text('ETA:  ${post.totalExits}'),
+                  ),
+                  ListTile(
+                    title: Text('Reference:  ${post.existence}'),
+                  ),
+                ],
+              );
+            }),
+      ),
+    );
+  }
+
+  Widget bottomMenu(BuildContext context) {
+    return new BottomNavigationBar(
+      key: Key('bottom-bar'),
+      backgroundColor: Color(0xFFE5251E),
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.settings),
+          label: 'Settings',
+        ),
+      ],
+      currentIndex: _selectedIndex,
+      selectedItemColor: Colors.amber[800],
+      onTap: _onItemTapped,
+    );
+  }
+
   List<InventoryTable> invTables;
 
   void initState() {
@@ -79,8 +242,6 @@ class _InventoryScreenState extends State<InventoryScreen> {
               Icons.arrow_back_ios,
               color: Colors.white,
             ),
-            //the icon button let's us pop back to the
-            //cup selection screen
             key: Key('goBack'),
             onPressed: () {
               Navigator.pushReplacement(
@@ -89,165 +250,8 @@ class _InventoryScreenState extends State<InventoryScreen> {
                       builder: (context) => HomeScreen(widget.user)));
             },
           )),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: SearchBar<InventoryTable>(
-              hintText: "Search by PO",
-              hintStyle: TextStyle(
-                color: Colors.black54,
-              ),
-              textStyle: TextStyle(
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-              loader: Center(
-                child: CircularProgressIndicator(),
-              ),
-              placeHolder: Center(
-                child: Column(
-                  children: [
-                    FutureBuilder<List<InventoryTable>>(
-                      future:
-                          EBIapi().fetchInventoryTables(widget.user.idcliente),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          invTables = snapshot.data;
-                          return Container(
-                              child: Expanded(
-                            child: ListView.separated(
-                              scrollDirection: Axis.vertical,
-                              shrinkWrap: true,
-                              padding: const EdgeInsets.all(1),
-                              itemCount: invTables.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Card(
-                                    color: Colors.grey[300],
-                                    child: ExpansionTile(
-                                      key: Key('MainTile'),
-                                      title: Text(
-                                        'PO: ${invTables[index].po}',
-                                        style: TextStyle(
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      children: <Widget>[
-                                        ListTile(
-                                          title: Text('Transportation: ' +
-                                              stringExists(invTables[index]
-                                                  .tramitID
-                                                  .toString())),
-                                        ),
-                                        ListTile(
-                                          title: Text('Date Arrived: ' +
-                                              commentExists(trimString(
-                                                  invTables[index]
-                                                      .dateArrived
-                                                      .toString(),
-                                                  'T'))),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Product:  ${invTables[index].productDescription}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Weight:  ${invTables[index].productPounds}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Total Cases:  ${invTables[index].bulkNumber}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Total Shipments: ${invTables[index].totalExits}'),
-                                        ),
-                                        ListTile(
-                                          title: Text(
-                                              'Remaining:  ${invTables[index].existence}'),
-                                        ),
-                                      ],
-                                    ));
-                              },
-                              separatorBuilder:
-                                  (BuildContext context, int index) =>
-                                      const Divider(thickness: 0),
-                            ),
-                          ));
-                        } else if (snapshot.hasError) {
-                          return Center(
-                              child: Text('Error: ${snapshot.error}'));
-                        }
-                        return Center(child: CircularProgressIndicator());
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              onError: (error) {
-                return Center(
-                  child: Text("Error occurred : $error"),
-                );
-              },
-              emptyWidget: Center(
-                child: Text("Empty"),
-              ),
-              mainAxisSpacing: 10,
-              crossAxisSpacing: 10,
-              minimumChars: 1,
-              onSearch: search,
-              onItemFound: (InventoryTable post, int index) {
-                return ExpansionTile(
-                  key: Key('MainTile'),
-                  title: Text(
-                    'PO: ${post.po}',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
-                  ),
-                  children: <Widget>[
-                    ListTile(
-                      title: Text('Transportation:  ${post.tramitID}'),
-                    ),
-                    ListTile(
-                      title: Text('Unit:  ${post.dateArrived}'),
-                    ),
-                    ListTile(
-                      title: Text('Origin:  ${post.productDescription}'),
-                    ),
-                    ListTile(
-                      title: Text('Destination:  ${post.productPounds}'),
-                    ),
-                    ListTile(
-                      title: Text('Initial Date:  ${post.bulkNumber}'),
-                    ),
-                    ListTile(
-                      title: Text('ETA:  ${post.totalExits}'),
-                    ),
-                    ListTile(
-                      title: Text('Reference:  ${post.existence}'),
-                    ),
-                  ],
-                );
-              }),
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        key: Key('bottom-bar'),
-        backgroundColor: Color(0xFFE5251E),
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
-      ),
+      body: _searchWidget(context),
+      bottomNavigationBar: bottomMenu(context),
     );
   }
 }
