@@ -21,7 +21,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     _selectedIndex = index;
     if (_selectedIndex == 0) {
       setState(() {
-        Navigator.pushReplacement(context,
+        Navigator.push(context,
             CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       });
     } else if (_selectedIndex == 1) {
@@ -31,7 +31,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
       );
     } else if (_selectedIndex == 2) {
       setState(() {
-        Navigator.pushReplacement(
+        Navigator.push(
             context,
             CupertinoPageRoute(
                 builder: (context) => SettingsScreen(widget.user)));
@@ -810,10 +810,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
             ),
             key: Key('goBack'),
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => HomeScreen(widget.user)));
+              Navigator.pop(context);
             },
           )),
       body: _searchWidget(context),

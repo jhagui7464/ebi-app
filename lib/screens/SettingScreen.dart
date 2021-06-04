@@ -22,11 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
-        Navigator.pushReplacement(context,
+        Navigator.push(context,
             CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
         setState(() {
-          Navigator.pushReplacement(
+          Navigator.push(
               context,
               CupertinoPageRoute(
                   builder: (context) => SettingsScreen(widget.user)));
@@ -85,13 +85,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: Color(0xFFE5251E),
-        title: Text(
-          "Settings",
-          key: Key('settings'),
-        ),
-      ),
+          centerTitle: true,
+          backgroundColor: Color(0xFFE5251E),
+          title: Text(
+            "Settings",
+            key: Key('settings'),
+          ),
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            key: Key('goBack'),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )),
       body: _settingsWidget(context),
       bottomNavigationBar: bottomMenu(context),
     );

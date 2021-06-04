@@ -21,10 +21,10 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
-        Navigator.pushReplacement(context,
+        Navigator.push(context,
             CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
-        Navigator.pushReplacement(
+        Navigator.push(
             context,
             CupertinoPageRoute(
                 builder: (context) => SettingsScreen(widget.user)));
@@ -328,10 +328,7 @@ class _TrackingSearchScreenState extends State<TrackingSearchScreen> {
             ),
             key: Key('goBack'),
             onPressed: () {
-              Navigator.pushReplacement(
-                  context,
-                  CupertinoPageRoute(
-                      builder: (context) => HomeScreen(widget.user)));
+              Navigator.pop(context);
             },
           )),
       body: _searchWidget(context),

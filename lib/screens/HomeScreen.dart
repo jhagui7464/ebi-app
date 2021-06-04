@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       } else if (_selectedIndex == 1) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushReplacement(
+          Navigator.push(
               context,
               CupertinoPageRoute(
                 builder: (context) => SettingsScreen(widget.user),
@@ -64,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     CupertinoPageRoute(
                         builder: (context) =>
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     CupertinoPageRoute(
                         builder: (context) => InventoryScreen(widget.user)));
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               trailing: Icon(Icons.keyboard_arrow_right),
               onTap: () {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     CupertinoPageRoute(
                         builder: (context) => OperationsScreen(widget.user)));
