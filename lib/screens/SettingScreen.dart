@@ -22,7 +22,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       } else if (_selectedIndex == 1) {
         setState(() {

@@ -21,7 +21,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
     _selectedIndex = index;
     if (_selectedIndex == 0) {
       setState(() {
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
       });
     } else if (_selectedIndex == 1) {
