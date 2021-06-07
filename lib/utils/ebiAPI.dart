@@ -4,8 +4,8 @@ import 'dart:convert';
 
 class EBIapi {
   Future<UserData> fetchUser(String username, String password) async {
-    final response = await http
-        .get(Uri.parse('https:/eb-int.com/users/' + username + '/' + password));
+    final response = await http.get(
+        Uri.parse('https://eb-int.com/users/' + username + '/' + password));
 
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -28,7 +28,7 @@ class EBIapi {
 
   Future<List<ClientTable>> fetchTables(int userID) async {
     final response = await http
-        .get(Uri.parse('https:/eb-int.com/userTables/' + userID.toString()));
+        .get(Uri.parse('https://eb-int.com/userTables/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseClientTables(response.body);
     } else {
@@ -38,7 +38,7 @@ class EBIapi {
 
   Future<List<ClientTable>> fetchdoneTables(int userID) async {
     final response = await http.get(
-        Uri.parse('https:/eb-int.com/userTables/done/' + userID.toString()));
+        Uri.parse('https://eb-int.com/userTables/done/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseClientTables(response.body);
     } else {
@@ -55,7 +55,7 @@ class EBIapi {
 
   Future<List<InventoryTable>> fetchInventoryTables(int userID) async {
     final response = await http
-        .get(Uri.parse('https:/eb-int.com/inventory/' + userID.toString()));
+        .get(Uri.parse('https://eb-int.com/inventory/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseInventoryTables(response.body);
     } else {
@@ -70,7 +70,7 @@ class EBIapi {
 
   Future<List<Operations>> fetchOperations(int userID) async {
     final response = await http
-        .get(Uri.parse('https:/eb-int.com/operations/' + userID.toString()));
+        .get(Uri.parse('https://eb-int.com/operations/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseOperations(response.body);
     } else {
@@ -80,7 +80,7 @@ class EBIapi {
 
   Future<List<Operations>> fetchDoneOperations(int userID) async {
     final response = await http.get(
-        Uri.parse('https:/eb-int.com/operations/done/' + userID.toString()));
+        Uri.parse('https://eb-int.com/operations/done/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseOperations(response.body);
     } else {
