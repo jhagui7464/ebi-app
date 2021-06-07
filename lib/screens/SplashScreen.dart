@@ -20,7 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   navigatetoLoginScreen() {
-    Navigator.pushReplacement(context, SizeRoute(page: LoginScreen()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => LoginScreen()));
   }
 
   Widget _splashWidget(BuildContext context) {
