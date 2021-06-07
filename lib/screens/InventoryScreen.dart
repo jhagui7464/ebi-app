@@ -22,7 +22,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
         Navigator.of(context).pushAndRemoveUntil(
-            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)),
+            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)),
             (Route<dynamic> route) => false);
       } else if (_selectedIndex == 1) {
         Navigator.push(
