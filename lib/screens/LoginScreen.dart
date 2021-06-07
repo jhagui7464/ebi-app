@@ -116,13 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 if (snapshot.hasData) {
                   currentUser = snapshot.data;
                   print('${currentUser.uname}');
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushReplacement(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context) => HomeScreen(currentUser),
-                        ));
-                  });
+                  Navigator.pushReplacement(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => HomeScreen(currentUser),
+                      ));
                 } else if (snapshot.hasError) {
                   return Text(
                     "Username or Password are Invalid",
