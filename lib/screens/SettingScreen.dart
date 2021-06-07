@@ -22,15 +22,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
     setState(() {
       _selectedIndex = index;
       if (_selectedIndex == 0) {
-        Navigator.pushReplacement(context,
-            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (context) => HomeScreen(widget.user)),
+            (Route<dynamic> route) => false);
       } else if (_selectedIndex == 1) {
-        setState(() {
-          Navigator.push(
-              context,
-              CupertinoPageRoute(
-                  builder: (context) => SettingsScreen(widget.user)));
-        });
+        setState(() {});
       }
     });
   }
@@ -47,13 +43,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 trailing: Icon(Icons.keyboard_arrow_right),
                 onTap: () {
                   // Update the state of the app
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ));
-                  });
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (Route<dynamic> route) => false);
                 },
               ),
             )),

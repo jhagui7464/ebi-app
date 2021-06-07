@@ -21,8 +21,9 @@ class _OperationsScreenState extends State<OperationsScreen> {
     _selectedIndex = index;
     if (_selectedIndex == 0) {
       setState(() {
-        Navigator.pushReplacement(context,
-            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)));
+        Navigator.of(context).pushAndRemoveUntil(
+            CupertinoPageRoute(builder: (context) => HomeScreen(widget.user)),
+            (Route<dynamic> route) => false);
       });
     } else if (_selectedIndex == 1) {
       showDialog(
