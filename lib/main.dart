@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
     //SystemChrome.setEnabledSystemUIOverlays([]);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // is not restarted.
         primarySwatch: Colors.blue,
