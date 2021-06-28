@@ -69,12 +69,22 @@ class EBIapi {
   }
 
   Future<List<Operations>> fetchOperations(int userID) async {
-    final response = await http
-        .get(Uri.parse('https://eb-int.com/operations/' + userID.toString()));
+    final response = await http.get(
+        Uri.parse('https://eb-int.com/operations/fourth/' + userID.toString()));
     if (response.statusCode == 200) {
       return parseOperations(response.body);
     } else {
       throw Exception('Unable to fetch Operations from the REST API');
+    }
+  }
+
+  Future<List<Operations>> fetchRestOperations(int userID) async {
+    final response = await http.get(
+        Uri.parse('https://eb-int.com/operations/third/' + userID.toString()));
+    if (response.statusCode == 200) {
+      return parseOperations(response.body);
+    } else {
+      throw Exception('Unable to fetch Done Operations from the REST API');
     }
   }
 

@@ -168,7 +168,28 @@ class _OperationsScreenState extends State<OperationsScreen> {
                     future: EBIapi().fetchDoneOperations(widget.user.idcliente),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        operationsTable = snapshot.data;
+                        for (int i = 0; i < snapshot.data.length; i++) {
+                          invoiceList.add(snapshot.data[i].invoiceID);
+                          operationsTable.add(snapshot.data[i]);
+                        }
+                        print("1 done operations: " +
+                            operationsTable.length.toString());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      return Container();
+                    },
+                  ),
+                  FutureBuilder<List<Operations>>(
+                    future: EBIapi().fetchRestOperations(widget.user.idcliente),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        for (int i = 0; i < snapshot.data.length; i++) {
+                          invoiceList.add(snapshot.data[i].invoiceID);
+                          operationsTable.add(snapshot.data[i]);
+                        }
+                        print("2 operations: " +
+                            operationsTable.length.toString());
                       } else if (snapshot.hasError) {
                         return Center(child: Text('Error: ${snapshot.error}'));
                       }
@@ -182,8 +203,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
                         for (int i = 0; i < snapshot.data.length; i++) {
                           operationsTable.add(snapshot.data[i]);
                         }
+                        print("3 rest operations: " +
+                            operationsTable.length.toString());
                         if (operationsTable != null &&
-                            operationsTable.length != 0) {
+                            operationsTable.length != null) {
                           return Container(
                               child: Expanded(
                             child: ListView.separated(
@@ -213,7 +236,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                         ),
                                         ListTile(
                                             title: Text('Tramit Date: ' +
-                                                commentExists(trimString(
+                                                stringExists(trimString(
                                                     operationsTable[index]
                                                         .tramitDate
                                                         .toString(),
@@ -235,8 +258,10 @@ class _OperationsScreenState extends State<OperationsScreen> {
                                                         .toString(),
                                                     'T')))),
                                         ListTile(
-                                            title: Text(
-                                                'Unit: ${operationsTable[index].unit}')),
+                                            title: Text('Unit: ' +
+                                                stringExists(
+                                                    operationsTable[index]
+                                                        .unit))),
                                         ListTile(
                                             title: Text('Process Date: ' +
                                                 commentExists(trimString(
@@ -571,7 +596,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                   ),
                   ListTile(
                       title: Text('Tramit Date: ' +
-                          commentExists(trimString(
+                          stringExists(trimString(
                               operationsTable[index].tramitDate.toString(),
                               'T')))),
                   ListTile(
@@ -588,7 +613,9 @@ class _OperationsScreenState extends State<OperationsScreen> {
                           commentExists(trimString(
                               operationsTable[index].arrivalDate.toString(),
                               'T')))),
-                  ListTile(title: Text('Unit: ${operationsTable[index].unit}')),
+                  ListTile(
+                      title: Text('Unit: ' +
+                          stringExists(operationsTable[index].unit))),
                   ListTile(
                       title: Text('Process Date: ' +
                           commentExists(trimString(
@@ -788,6 +815,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
   }
 
   List<Operations> operationsTable = [];
+  List<int> invoiceList = [];
   void initState() {
     super.initState();
   }

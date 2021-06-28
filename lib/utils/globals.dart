@@ -244,6 +244,24 @@ List<List<String>> timeChainBreak(String str) {
   List<List<String>> finalStr = [];
   String temp = '';
   List<String> tempList = [];
+  if (str == null) {
+    return [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ];
+  }
   for (int i = 0; i < str.length; i++) {
     if (str[i] == '|') {
       tempList.add(temp);
