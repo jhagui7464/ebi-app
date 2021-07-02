@@ -181,7 +181,7 @@ class _OperationsScreenState extends State<OperationsScreen> {
                     },
                   ),
                   FutureBuilder<List<Operations>>(
-                    future: EBIapi().fetchRestOperations(widget.user.idcliente),
+                    future: EBIapi().fetchOperations(widget.user.idcliente),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         for (int i = 0; i < snapshot.data.length; i++) {
@@ -197,14 +197,38 @@ class _OperationsScreenState extends State<OperationsScreen> {
                     },
                   ),
                   FutureBuilder<List<Operations>>(
-                    future: EBIapi().fetchOperations(widget.user.idcliente),
+                    future:
+                        EBIapi().fetchSecondOperations(widget.user.idcliente),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         for (int i = 0; i < snapshot.data.length; i++) {
+                          invoiceList.add(snapshot.data[i].invoiceID);
                           operationsTable.add(snapshot.data[i]);
                         }
-                        print("3 rest operations: " +
+                        print("3 second operations: " +
                             operationsTable.length.toString());
+                      } else if (snapshot.hasError) {
+                        return Center(child: Text('Error: ${snapshot.error}'));
+                      }
+                      return Container();
+                    },
+                  ),
+                  FutureBuilder<List<Operations>>(
+                    future:
+                        EBIapi().fetchThirdOperations(widget.user.idcliente),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        for (int i = 0; i < snapshot.data.length; i++) {
+                          if (invoiceList
+                              .contains(snapshot.data[i].invoiceID)) {
+                            continue;
+                          } else {
+                            operationsTable.add(snapshot.data[i]);
+                          }
+                        }
+                        print("4 third operations: " +
+                            operationsTable.length.toString());
+
                         if (operationsTable != null &&
                             operationsTable.length != null) {
                           return Container(
